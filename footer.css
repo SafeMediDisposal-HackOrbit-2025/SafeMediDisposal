@@ -9,7 +9,7 @@ footer .logo {
   padding: 15px;
 }
 
-.container {
+footer .container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
@@ -21,7 +21,7 @@ footer .logo {
   font-size: 18px;
 }
 
-.container h3 {
+footer .container h3 {
   font-size: 22px;
   text-decoration: underline;
   margin-bottom: 10px;
