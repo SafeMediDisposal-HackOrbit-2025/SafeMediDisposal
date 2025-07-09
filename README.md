@@ -9,7 +9,7 @@ Built using modern front-end technologies, this solution empowers users with awa
 ## 🌐 Live Demo
 
 Check out the deployed version of the project here:  
-👉 **[SafeMediDisposal Live Site](https://safemedidisposal.netlify.app/)**
+👉 **[SafeMediDisposal Live Site](https://safe-medi-disposal.netlify.app/)**
 
 ---
 
