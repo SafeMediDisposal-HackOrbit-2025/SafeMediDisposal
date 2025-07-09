@@ -1,0 +1,390 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: relative;
+  flex-wrap: wrap;
+}
+
+.logo img {
+  height: 40px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #2E3A59;
+  font-weight: 500;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* Top Section */
+.top {
+  width: 90%;
+  margin: 100px auto 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.hello-name {
+  font-size: 40px;
+  font-family: 'Fraunces';
+  font-weight: bold;
+  color: #2E3A59;
+}
+
+.log-out {
+  background-color: #50C2C9;
+  color: #FDF9EE;
+  width: 178px;
+  height: 41px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* Main Container */
+.container {
+  display: flex;
+  width: 90%;
+  margin: auto;
+  background-color: #e8e8e8;
+  border-radius: 40px;
+  overflow: hidden;
+  margin-bottom: 40px;
+  flex-direction: row;
+}
+
+.sidebar {
+  background-color: #50C2C9;
+  width: 25%;
+  min-width: 120px;
+  max-width: 250px;
+  min-height: 100%;
+}
+
+.content {
+  flex: 1;
+  padding: 50px 30px;
+}
+
+/* Profile Section */
+.profile-section {
+  background-color: white;
+  padding: 40px;
+  border-radius: 15px;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+.profile-pic {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #ddd;
+  margin: 0 auto 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+}
+
+/* Edit Section */
+.edit-section {
+  margin-bottom: 50px;
+}
+
+.section-title {
+  font-size: 30px;
+  font-family: 'Fraunces';
+  color: #2E3A59;
+  margin-bottom: 40px;
+  text-decoration: underline;
+  padding-left: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  background-color: #CADBDB;
+  font-size: 14px;
+}
+
+.save-btn {
+  background-color: #50C2C9;
+  color: white;
+  width: 100%;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background-color: #35959a;
+}
+
+/* Campaigns Section */
+.campaigns-section {
+  margin-top: 80px;
+}
+
+.campaign-cards {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 20px;
+  padding: 0 20px;
+}
+
+.campaign-card {
+  width: 280px;
+  background: #e0f6f6;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  text-align: center;
+  padding-bottom: 20px;
+  flex-shrink: 0;
+}
+
+.campaign-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.campaign-card h4 {
+  margin: 15px 0 10px;
+  font-weight: 600;
+}
+
+.campaign-card p {
+  font-size: 14px;
+  padding: 0 15px;
+  color: #444;
+}
+
+.campaign-card button {
+  margin-top: 15px;
+  padding: 8px 16px;
+  background-color: #4ac6cb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Medium Screens (Tablets) */
+@media (max-width: 992px) {
+  .top {
+    width: 95%;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .hello-name {
+    font-size: 32px;
+    text-align: center;
+  }
+
+  .log-out {
+    font-size: 14px;
+    width: 140px;
+  }
+
+  .container {
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+  .sidebar {
+    width: 25%;
+    min-width: 80px;
+  }
+
+  .content {
+    flex: 1;
+    padding: 30px 20px;
+  }
+
+  .form-input,
+  .save-btn {
+    width: 100%;
+  }
+
+  .section-title {
+    font-size: 24px;
+    padding-left: 10px;
+  }
+
+  .campaign-cards {
+    padding: 0 10px;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #ffffff;
+    position: absolute;
+    top: 70px;
+    right: 30px;
+    padding: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+}
+
+/* Small Screens (Phones) */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 20px;
+  }
+
+  .nav-links {
+    position: static;
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .icons {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .container {
+    flex-direction: column;
+    border-radius: 30px;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    min-height: auto;
+    text-align: center;
+    padding: 20px 0;
+  }
+   .sidebar {
+    display: none;
+  }
+
+  .content {
+    padding: 20px;
+  }
+
+  .profile-section {
+    padding: 20px;
+  }
+
+  .edit-section {
+    padding: 10px 0;
+  }
+
+  .form-input {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .campaign-cards {
+    flex-direction: column;
+    overflow-x: hidden;
+    gap: 20px;
+  }
+
+  .campaign-card {
+    width: 100%;
+  }
+
+  .hello-name {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .log-out {
+    font-size: 14px;
+    width: 120px;
+    height: 35px;
+  }
+
+  .menu-toggle {
+    display: block;
+    font-size: 24px;
+    margin-left: auto;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .campaign-card img {
+    height: 160px;
+  }
+
+  .campaign-card p,
+  .campaign-card button {
+    font-size: 13px;
+  }
+
+  .campaign-card button {
+    padding: 6px 12px;
+  }
+}
