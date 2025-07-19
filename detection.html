@@ -2,495 +2,634 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Hospital Waste Detector</title>
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Medical Waste Detection</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      background: linear-gradient(135deg, #001f3f, #003366);
-      color: #ffffff;
-      font-family: Arial, sans-serif;
+    :root {
+      --primary: #50C2C9;
+      --primary-dark: #3ba0a6;
+      --primary-light: #7dd3d8;
+      --secondary: #2c8a8f;
+      --accent: #50C2C9;
+      --cyan-50: #ecfeff;
+      --cyan-100: #cffafe;
+      --cyan-200: #a5f3fc;
+      --cyan-500: #50C2C9;
+      --cyan-600: #3ba0a6;
+      --cyan-700: #2c8a8f;
+      --cyan-800: #1f6b70;
+      --cyan-900: #164e52;
+      
+      --white: #ffffff;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+      
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      
+      --gradient-primary: linear-gradient(135deg, #50C2C9 0%, #3ba0a6 50%, #2c8a8f 100%);
+      --gradient-secondary: linear-gradient(135deg, #2c8a8f 0%, #164e52 100%);
+      --gradient-light: linear-gradient(135deg, #ecfeff 0%, #cffafe 100%);
+    }
+
+    * {
       margin: 0;
       padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--gradient-light);
       min-height: 100vh;
+      padding: 2rem;
+      color: var(--gray-800);
+      line-height: 1.6;
     }
+
+    /* Header Styles */
     h1 {
-      margin-bottom: 20px;
-      color: #00bfff;
-    }
-    .controls {
-      margin-bottom: 20px;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    #upload, #camera-btn, #stop-btn {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #004080;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    #upload:hover, #camera-btn:hover, #stop-btn:hover {
-      background-color: #0059b3;
-    }
-    #stop-btn {
-      background-color: #800040;
-      display: none;
-    }
-    #stop-btn:hover {
-      background-color: #b30059;
-    }
-    #container {
+      background: var(--gradient-primary);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 2rem;
+      text-align: center;
       position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 20px;
-      width: 640px;
-      height: 480px;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 10px;
     }
-    
-    video, canvas {
-      border: 3px solid #00bfff;
-      border-radius: 10px;
+
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--gradient-primary);
+      border-radius: 2px;
+    }
+
+    /* Control Buttons */
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    input[type="file"], button {
+      margin: 0;
+      padding: 0.875rem 1.75rem;
+      font-size: 1rem;
+      font-weight: 500;
+      border: none;
+      background: var(--gradient-primary);
+      color: var(--white);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
+    }
+
+    input[type="file"]::before {
+      content: '📁 Choose Image';
       display: block;
     }
-    
-    canvas {
+
+    button:hover, input[type="file"]:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+      background: var(--gradient-secondary);
+    }
+
+    button:active, input[type="file"]:active {
+      transform: translateY(0);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Add ripple effect */
+    button::before {
+      content: '';
       position: absolute;
       top: 50%;
       left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transition: all 0.3s;
       transform: translate(-50%, -50%);
     }
-    
-    video {
+
+    button:active::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    /* Media Elements */
+    .media-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      max-width: 1200px;
+      margin-inline: auto;
+    }
+
+    @media (min-width: 768px) {
+      .media-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .media-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow-xl);
+      border: 1px solid var(--cyan-100);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .media-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-primary);
+    }
+
+    .media-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-2xl);
+    }
+
+    .media-card h3 {
+      color: var(--cyan-700);
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    #preview, #video {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      max-width: 100%;
+      height: auto;
+      aspect-ratio: 4 / 3;
+      object-fit: contain;
+      border-radius: 16px;
+      box-shadow: var(--shadow-md);
+      border: 3px solid var(--cyan-100);
+      background: var(--gray-50);
+      transition: all 0.3s ease;
     }
-    
-    #legend {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: rgba(0, 0, 0, 0.8);
-      padding: 15px;
-      border-radius: 8px;
-      font-size: 14px;
-      border: 2px solid #00bfff;
+
+    #preview:hover, #video:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-lg);
     }
-    .legend-item {
-      margin: 4px 0;
+
+    #video {
+      display: none;
+    }
+
+    /* Results Section */
+    #results {
+      margin-top: 2rem;
+      padding: 2rem;
+      background: var(--white);
+      border-radius: 24px;
+      box-shadow: var(--shadow-xl);
+      text-align: left;
+      max-width: 900px;
+      margin-inline: auto;
+      border: 1px solid var(--cyan-100);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #results::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: var(--gradient-primary);
+    }
+
+    #results h3 {
+      color: var(--cyan-700);
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
       display: flex;
       align-items: center;
+      gap: 0.5rem;
     }
-    .legend-color {
-      width: 15px;
-      height: 15px;
-      margin-right: 8px;
-      border-radius: 3px;
+
+    #results h3::before {
+      content: '🔍';
+      font-size: 1.2rem;
+    }
+
+    /* Detection Items */
+    .detection {
+      border-bottom: 1px solid var(--cyan-100);
+      padding: 1.5rem 0;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .detection:last-child {
+      border-bottom: none;
+    }
+
+    .detection:hover {
+      background: var(--cyan-50);
+      margin: 0 -1rem;
+      padding: 1.5rem 1rem;
+      border-radius: 12px;
+      transform: translateX(5px);
+    }
+
+    .detection strong {
+      color: var(--primary);
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-transform: capitalize;
       display: inline-block;
-      border: 1px solid #fff;
+      margin-bottom: 0.5rem;
     }
-    #status {
-      margin-top: 10px;
-      padding: 10px;
-      background: rgba(0, 0, 0, 0.6);
+
+    .detection-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .info-item {
+      background: var(--cyan-50);
+      padding: 0.75rem 1rem;
       border-radius: 8px;
-      font-size: 14px;
-      text-align: center;
-      min-height: 20px;
+      border-left: 4px solid var(--primary);
+      font-size: 0.9rem;
+      color: var(--gray-700);
     }
+
+    .info-item strong {
+      color: var(--cyan-700);
+      font-size: 0.9rem;
+      margin-bottom: 0;
+    }
+
+    .confidence {
+      display: inline-block;
+      background: var(--gradient-primary);
+      color: var(--white);
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-left: 1rem;
+    }
+
+    /* Loading State */
     .loading {
-      color: #ffaa00;
+      text-align: center;
+      padding: 2rem;
+      color: var(--cyan-600);
+      font-size: 1.1rem;
     }
-    .ready {
-      color: #00ff00;
+
+    .loading::after {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      border: 3px solid var(--cyan-200);
+      border-radius: 50%;
+      border-top-color: var(--primary);
+      animation: spin 1s linear infinite;
+      margin-left: 1rem;
     }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--gray-500);
+    }
+
+    .empty-state::before {
+      content: '🔍';
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    /* Error State */
     .error {
-      color: #ff4444;
+      color: #ef4444;
+      text-align: center;
+      padding: 2rem;
+      background: #fef2f2;
+      border-radius: 12px;
+      border: 1px solid #fecaca;
     }
-    #detection-info {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      background: rgba(0, 0, 0, 0.8);
-      padding: 15px;
-      border-radius: 8px;
-      font-size: 14px;
-      border: 2px solid #00bfff;
-      max-width: 300px;
+
+    /* Success State */
+    .success {
+      background: var(--cyan-50);
+      border: 1px solid var(--cyan-200);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1rem;
     }
-    .detection-count {
-      margin: 5px 0;
-      display: flex;
-      justify-content: space-between;
+
+    .success::before {
+      content: '✅ ';
+      color: var(--primary);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+
+      .controls {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      input[type="file"], button {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .media-card {
+        padding: 1rem;
+      }
+
+      #results {
+        padding: 1.5rem;
+      }
+
+      .detection-info {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .detection {
+        padding: 1rem 0;
+      }
+
+      .detection:hover {
+        margin: 0 -0.5rem;
+        padding: 1rem 0.5rem;
+      }
+    }
+
+    canvas {
+      display: none;
+    }
+
+    /* Add subtle animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .detection {
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    /* Floating elements */
+    .floating {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
     }
   </style>
 </head>
 <body>
-  <h1>Hospital Waste Detector</h1>
+  <h1 class="floating">Medical Waste Detection</h1>
+
   <div class="controls">
-    <input type="file" id="upload" accept="image/*">
-    <button id="camera-btn">Start Live Detection</button>
-    <button id="stop-btn">Stop Detection</button>
-  </div>
-  <div id="container">
-    <video id="webcam" width="640" height="480" autoplay muted style="display:none;"></video>
-    <canvas id="overlay" width="640" height="480"></canvas>
-  </div>
-  <div id="status" class="loading">Loading AI model...</div>
-  
-  <div id="legend">
-    <h4 style="margin-top: 0; color: #00bfff;">Detection Classes</h4>
-    <div class="legend-item"><span class="legend-color" style="background-color: #4444ff;"></span>Glove</div>
-    <div class="legend-item"><span class="legend-color" style="background-color: #44ff44;"></span>Mask</div>
-    <div class="legend-item"><span class="legend-color" style="background-color: #ff4444;"></span>Syringe</div>
-    <div class="legend-item"><span class="legend-color" style="background-color: #ffff44;"></span>Biohazard Bag</div>
-    <div class="legend-item"><span class="legend-color" style="background-color: #ff44ff;"></span>Bandage</div>
+    <input type="file" id="fileInput" accept="image/*" />
+    <button onclick="startCamera()">📷 Capture via Webcam</button>
+    <button onclick="captureImage()">📸 Capture Image</button>
   </div>
 
-  <div id="detection-info">
-    <h4 style="margin-top: 0; color: #00bfff;">Live Detection Stats</h4>
-    <div class="detection-count">
-      <span>Gloves:</span>
-      <span id="glove-count">0</span>
+  <div class="media-container">
+    <div class="media-card">
+      <h3>📷 Camera View</h3>
+      <video id="video" autoplay playsinline></video>
     </div>
-    <div class="detection-count">
-      <span>Masks:</span>
-      <span id="mask-count">0</span>
-    </div>
-    <div class="detection-count">
-      <span>Syringes:</span>
-      <span id="syringe-count">0</span>
-    </div>
-    <div class="detection-count">
-      <span>Biohazard Bags:</span>
-      <span id="biohazard-count">0</span>
-    </div>
-    <div class="detection-count">
-      <span>Bandages:</span>
-      <span id="bandage-count">0</span>
-    </div>
-    <div class="detection-count" style="border-top: 1px solid #00bfff; margin-top: 10px; padding-top: 10px;">
-      <span><strong>Total Items:</strong></span>
-      <span id="total-count">0</span>
+    <div class="media-card">
+      <h3>🖼️ Image Preview</h3>
+      <img id="preview" src="" alt="Upload an image to see preview" />
     </div>
   </div>
 
-  <script>
-    let model;
-    let isDetecting = false;
-    let detectionLoop;
-    let stream;
-    
-    const video = document.getElementById('webcam');
-    const canvas = document.getElementById('overlay');
-    const ctx = canvas.getContext('2d');
-    const status = document.getElementById('status');
-    const cameraBtn = document.getElementById('camera-btn');
-    const stopBtn = document.getElementById('stop-btn');
-    const uploadInput = document.getElementById('upload');
-    
-    // Class names and colors
-    const classes = ['Glove', 'Mask', 'Syringe', 'Biohazard Bag', 'Bandage'];
-    const colors = {
-      'Glove': '#4444ff',
-      'Mask': '#44ff44',
-      'Syringe': '#ff4444',
-      'Biohazard Bag': '#ffff44',
-      'Bandage': '#ff44ff'
+  <canvas id="canvas" style="display:none;"></canvas>
+  <div id="results">
+    <div class="empty-state">
+      Upload an image or capture a photo to start detecting medical waste items.
+    </div>
+  </div>
+
+  <div style="text-align: center; margin-top: 2rem;">
+    <a href="gamification.html">
+      <button style="
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        border-radius: 0.5rem;
+        background-color: #0f766e;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      ">
+        🎮 View Gamification Results
+      </button>
+    </a>
+  </div>
+
+
+
+<script>
+  const fileInput = document.getElementById('fileInput');
+  const preview = document.getElementById('preview');
+  const results = document.getElementById('results');
+  const video = document.getElementById('video');
+  const canvas = document.getElementById('canvas');
+  let stream;
+
+  fileInput.addEventListener('change', () => {
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      const base64Image = reader.result.split(',')[1];
+      preview.src = reader.result;
+      detectWaste(base64Image);
     };
-    
-    // Detection counters
-    let detectionCounts = {
-      'Glove': 0,
-      'Mask': 0,
-      'Syringe': 0,
-      'Biohazard Bag': 0,
-      'Bandage': 0
-    };
-    
-    // Load a pre-trained model (using MobileNet for demonstration)
-    async function loadModel() {
-      try {
-        status.textContent = 'Loading AI model...';
-        status.className = 'loading';
-        
-        // For demonstration, we'll use a simple object detection approach
-        // In a real implementation, you would load your trained hospital waste detection model
-        model = await tf.loadLayersModel('https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@1.0.0/dist/model.json');
-        
-        status.textContent = 'Model loaded successfully! Ready for detection.';
-        status.className = 'ready';
-        
-        console.log('Model loaded successfully ✅');
-      } catch (error) {
-        console.error('Error loading model:', error);
-        status.textContent = 'Error loading model. Using simulation mode.';
-        status.className = 'error';
-        model = null; // Use simulation mode
-      }
+
+    if (file) {
+      reader.readAsDataURL(file);
+      results.innerHTML = '<div class="loading">Analyzing image for medical waste...</div>';
     }
-    
-    // Process image for detection
-    async function processImage(imageElement) {
-      if (!model) {
-        // Simulation mode - generate random detections
-        return generateSimulatedDetections();
-      }
-      
-      try {
-        // Preprocess image
-        const tensor = tf.browser.fromPixels(imageElement)
-          .resizeNearestNeighbor([224, 224])
-          .expandDims(0)
-          .toFloat()
-          .div(255);
-        
-        // Run inference
-        const predictions = await model.predict(tensor).data();
-        
-        // Clean up tensor
-        tensor.dispose();
-        
-        // Convert predictions to detection format
-        return convertPredictionsToDetections(predictions);
-      } catch (error) {
-        console.error('Detection error:', error);
-        return generateSimulatedDetections();
-      }
-    }
-    
-    // Generate simulated detections for demonstration
-    function generateSimulatedDetections() {
-      const detections = [];
-      const numDetections = Math.floor(Math.random() * 4) + 1;
-      
-      for (let i = 0; i < numDetections; i++) {
-        const classIndex = Math.floor(Math.random() * classes.length);
-        const className = classes[classIndex];
-        const confidence = 0.6 + Math.random() * 0.4;
-        
-        const x = Math.random() * 0.7 + 0.1;
-        const y = Math.random() * 0.7 + 0.1;
-        const width = Math.random() * 0.2 + 0.1;
-        const height = Math.random() * 0.2 + 0.1;
-        
-        detections.push({
-          class: className,
-          confidence: confidence,
-          bbox: [x, y, width, height]
+  });
+
+  function startCamera() {
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(s => {
+          stream = s;
+          video.srcObject = stream;
+          video.style.display = "block";
+        })
+        .catch(err => {
+          alert("Could not access webcam: " + err.message);
         });
-      }
-      
-      return detections;
+    } else {
+      alert("Webcam not supported on this browser.");
     }
-    
-    // Convert model predictions to detection format
-    function convertPredictionsToDetections(predictions) {
-      // This is a simplified conversion - in a real implementation,
-      // you would parse the actual model output format
-      return generateSimulatedDetections();
-    }
-    
-    // Draw detections on canvas
-    function drawDetections(detections, sourceImage = null) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      // Draw video frame or uploaded image
-      if (video.style.display === 'block') {
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      } else if (sourceImage) {
-        // For uploaded images, draw the image first
-        ctx.drawImage(sourceImage, 0, 0, canvas.width, canvas.height);
+  }
+
+  function captureImage() {
+    if (!stream) return alert("Start the camera first.");
+
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const context = canvas.getContext("2d");
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    const dataURL = canvas.toDataURL("image/jpeg");
+    const base64Image = dataURL.split(',')[1];
+    preview.src = dataURL;
+    results.innerHTML = '<div class="loading">Analyzing captured image...</div>';
+    detectWaste(base64Image);
+  }
+
+  function detectWaste(base64Image) {
+    axios({
+      method: "POST",
+      url: "https://serverless.roboflow.com/medical-disposable/3",
+      params: {
+        api_key: "ob0DnZaOXrlnDuwoINcZ"
+      },
+      data: base64Image,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
       }
-      
-      // Reset counters
-      Object.keys(detectionCounts).forEach(key => {
-        detectionCounts[key] = 0;
+    })
+    .then(response => {
+      const predictions = response.data.predictions;
+
+      if (predictions.length === 0) {
+        results.innerHTML = `
+          <div class="success">
+            No medical waste detected in this image.
+          </div>
+        `;
+        return;
+      }
+
+      // Count each item type (gloves, syringe, etc.)
+      const counts = {};
+      predictions.forEach(p => {
+        const item = p.class.toLowerCase();
+        counts[item] = (counts[item] || 0) + 1;
       });
-      
-      // Draw detections
-      detections.forEach(detection => {
-        const { class: className, confidence, bbox } = detection;
-        const [x, y, width, height] = bbox;
-        
-        // Convert relative coordinates to canvas coordinates
-        const canvasX = x * canvas.width;
-        const canvasY = y * canvas.height;
-        const canvasWidth = width * canvas.width;
-        const canvasHeight = height * canvas.height;
-        
-        // Draw bounding box
-        ctx.strokeStyle = colors[className] || '#ffffff';
-        ctx.lineWidth = 3;
-        ctx.strokeRect(canvasX, canvasY, canvasWidth, canvasHeight);
-        
-        // Draw label background
-        const label = `${className} ${(confidence * 100).toFixed(1)}%`;
-        ctx.font = '16px Arial';
-        const textWidth = ctx.measureText(label).width;
-        const textHeight = 20;
-        
-        ctx.fillStyle = colors[className] || '#ffffff';
-        ctx.fillRect(canvasX, canvasY - textHeight, textWidth + 10, textHeight);
-        
-        // Draw label text
-        ctx.fillStyle = '#000000';
-        ctx.fillText(label, canvasX + 5, canvasY - 5);
-        
-        // Update counter
-        detectionCounts[className]++;
-      });
-      
-      // Update detection info display
-      updateDetectionInfo();
-    }
-    
-    // Update detection information display
-    function updateDetectionInfo() {
-      document.getElementById('glove-count').textContent = detectionCounts['Glove'];
-      document.getElementById('mask-count').textContent = detectionCounts['Mask'];
-      document.getElementById('syringe-count').textContent = detectionCounts['Syringe'];
-      document.getElementById('biohazard-count').textContent = detectionCounts['Biohazard Bag'];
-      document.getElementById('bandage-count').textContent = detectionCounts['Bandage'];
-      
-      const total = Object.values(detectionCounts).reduce((sum, count) => sum + count, 0);
-      document.getElementById('total-count').textContent = total;
-    }
-    
-    // Start webcam detection
-    async function startWebcamDetection() {
-      try {
-        stream = await navigator.mediaDevices.getUserMedia({ 
-          video: { width: 640, height: 480 } 
-        });
-        
-        video.srcObject = stream;
-        video.style.display = 'block';
-        
-        await new Promise(resolve => {
-          video.onloadedmetadata = () => {
-            video.play();
-            resolve();
-          };
-        });
-        
-        isDetecting = true;
-        cameraBtn.style.display = 'none';
-        stopBtn.style.display = 'inline-block';
-        
-        // Start detection loop
-        detectLoop();
-        
-      } catch (error) {
-        console.error('Webcam error:', error);
-        status.textContent = 'Error accessing webcam. Please check permissions.';
-        status.className = 'error';
-      }
-    }
-    
-    // Detection loop for live video
-    async function detectLoop() {
-      if (!isDetecting) return;
-      
-      try {
-        const detections = await processImage(video);
-        drawDetections(detections);
-      } catch (error) {
-        console.error('Detection loop error:', error);
-      }
-      
-      // Continue loop
-      detectionLoop = requestAnimationFrame(detectLoop);
-    }
-    
-    // Stop webcam detection
-    function stopWebcamDetection() {
-      isDetecting = false;
-      
-      if (detectionLoop) {
-        cancelAnimationFrame(detectionLoop);
-      }
-      
-      if (stream) {
-        stream.getTracks().forEach(track => track.stop());
-      }
-      
-      video.style.display = 'none';
-      video.srcObject = null;
-      
-      cameraBtn.style.display = 'inline-block';
-      stopBtn.style.display = 'none';
-      
-      // Clear canvas
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      // Reset counters
-      Object.keys(detectionCounts).forEach(key => {
-        detectionCounts[key] = 0;
-      });
-      updateDetectionInfo();
-    }
-    
-    // Handle image upload
-    async function handleImageUpload(file) {
-      const img = new Image();
-      img.onload = async () => {
-        // Stop webcam if running
-        if (isDetecting) {
-          stopWebcamDetection();
-        }
-        
-        // Process image
-        const detections = await processImage(img);
-        
-        // Draw image with detections
-        drawDetections(detections, img);
-        
-        URL.revokeObjectURL(img.src);
-      };
-      
-      img.onerror = () => {
-        status.textContent = 'Error loading image. Please try a different file.';
-        status.className = 'error';
-        URL.revokeObjectURL(img.src);
-      };
-      
-      img.src = URL.createObjectURL(file);
-    }
-    
-    // Event listeners
-    cameraBtn.addEventListener('click', startWebcamDetection);
-    stopBtn.addEventListener('click', stopWebcamDetection);
-    
-    uploadInput.addEventListener('change', (event) => {
-      const file = event.target.files[0];
-      if (file) {
-        handleImageUpload(file);
-      }
+
+      // Generate count summary
+      const countSummary = Object.entries(counts)
+        .map(([item, count]) => `<li><strong>${item}:</strong> ${count}</li>`)
+        .join("");
+
+      // Generate details
+      const details = predictions.map(p => `
+        <div class="detection">
+          <strong>${p.class}</strong>
+          <span class="confidence">${(p.confidence * 100).toFixed(1)}% confident</span>
+          <div class="detection-info">
+            <div class="info-item">
+              <strong>Position X:</strong> ${Math.round(p.x)}px
+            </div>
+            <div class="info-item">
+              <strong>Position Y:</strong> ${Math.round(p.y)}px
+            </div>
+            <div class="info-item">
+              <strong>Width:</strong> ${Math.round(p.width)}px
+            </div>
+            <div class="info-item">
+              <strong>Height:</strong> ${Math.round(p.height)}px
+            </div>
+          </div>
+        </div>
+      `).join("");
+
+      sessionStorage.setItem("wasteCounts", JSON.stringify(counts));
+
+      results.innerHTML = `
+        <div class="success">
+          Detected ${predictions.length} item${predictions.length > 1 ? 's' : ''}:
+          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">${countSummary}</ul>
+        </div>
+        <h3>Detection Results</h3>
+        ${details}
+      `;
+    })
+    .catch(error => {
+      results.innerHTML = `
+        <div class="error">
+          ❌ Error: ${error.message}
+          <br><small>Please try again with a different image.</small>
+        </div>
+      `;
     });
-    
-    // Initialize
-    loadModel();
-    
-    // Handle page unload
-    window.addEventListener('beforeunload', () => {
-      if (isDetecting) {
-        stopWebcamDetection();
-      }
-    });
-  </script>
+  }
+</script>
+
 </body>
 </html>
