@@ -1,131 +1,271 @@
+/* Universal Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif; /* Keep Poppins, add a generic sans-serif fallback */
+}
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-      /* box-sizing: border-box; */
-    }
+.container {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: row; /* Default for larger screens */
+}
 
+/* Left Section - Fixed on Desktop */
+.left-section {
+    flex: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 50%; /* Takes 50% width on larger screens */
+    z-index: 0;
+}
+
+.left-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 1; /* Ensure logo is above the image */
+}
+
+.logo-img {
+    width: 80px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+/* Right Section - Main Content */
+.right-section {
+    width: 50%; /* Takes 50% width on larger screens */
+    margin-left: 50%; /* Pushes it to the right of the fixed left section */
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto; /* Scrolls if content overflows */
+    max-height: 100vh; /* Limits to screen height */
+}
+
+.right-section h2 {
+    font-size: 60px;
+    margin-bottom: 30px;
+    margin-top: 25px;
+    color: #2E3A59;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Fraunces', serif; /* Add a generic serif fallback */
+}
+
+.form-box {
+    background-color: #f4fbfb;
+    padding: 40px 50px;
+    border-radius: 30px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 601px;
+    height: auto;
+    max-height: none;
+    overflow-y: visible;
+}
+
+.form label {
+    display: block;
+    padding: 25px 0 5px 0; /* Adjusted padding for better spacing */
+    margin-top: 15px;
+    font-size: 20px;
+    color: #333;
+    font-weight: 800;
+}
+
+.form input {
+    width: 100%; /* Changed to 100% for better responsiveness */
+    padding: 25px;
+    margin-top: 5px;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    background-color: #e2f0f1;
+    font-size: 14px;
+}
+
+.form button {
+    display: block;
+    margin: 50px auto; /* Centers horizontally */
+    width: 40%;
+    padding: 15px;
+    background-color: #3cbec9;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.form button:hover {
+    background-color: #2aa7b1;
+}
+
+.form p {
+    margin-top: 10px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.form a {
+    color: #000;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* --- Media Queries --- */
+
+/* For screens smaller than 992px (e.g., tablets in portrait, smaller laptops) */
+@media (max-width: 992px) {
     .container {
-      display: flex;
-      min-height: 100vh;
+        flex-direction: column; /* Stack sections vertically */
     }
 
     .left-section {
-      flex: 1;
-       position: fixed;  /* keeps the image still */
-       top: 0;
-       left: 0;
-       height: 100%;
-       width: 50%;
-       z-index: 0;
-    }
-
-    .left-section img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      
+        position: relative; /* Remove fixed positioning */
+        width: 100%; /* Take full width */
+        height: 250px; /* Set a fixed height for the image section */
+        overflow: hidden; /* Hide overflow if image doesn't fit perfectly */
     }
 
     .logo {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-    }
-
-    .logo-img {
-      width: 80px;
-      height: auto;
-      margin-bottom: 10px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
     }
 
     .right-section {
-  width: 50%;
-  margin-left: 50%;
-  padding: 50px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow-y: auto;       /*scrolls if content overflows */
-  max-height: 100vh;      /*limits to screen height */
-}
-
+        width: 100%; /* Take full width */
+        margin-left: 0; /* Remove left margin */
+        padding: 30px 20px; /* Adjust padding */
+        max-height: none; /* Allow content to dictate height */
+    }
 
     .right-section h2 {
-      font-size: 60px;
-      margin-bottom: 30px;
-      margin-top: 25px;
-      color: #2E3A59;
-      font-weight: bold;
-      text-align: center;
-      font-family: 'Fraunces', serif;
+        font-size: 48px; /* Reduce heading font size */
+        margin-bottom: 20px;
     }
 
     .form-box {
-      background-color: #f4fbfb;
-      padding: 40px 50px;
-      border-radius: 30px;
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 601px;
-      height: auto;   
-      max-height: none;
-      overflow-y: visible;
-
+        padding: 30px; /* Adjust form box padding */
     }
 
     .form label {
-      display: block;
-      padding: 25px;
-      margin-top: 15px;
-      font-size: 14px;
-      color: #333;
-      font-weight: 800;
-      font-size: 20px;
+        font-size: 18px; /* Adjust label font size */
     }
 
     .form input {
-      width: 95%;
-      padding: 25px;
-      margin-top: 5px;
-      border-radius: 15px;
-      border: 1px solid #ccc;
-      background-color: #e2f0f1;
-      font-size: 14px;
+        padding: 20px; /* Adjust input padding */
     }
 
     .form button {
-  display: block;
-  margin: 50px auto;           /* ✅ centers horizontally */
-  width: 40%;
-  padding: 15px;
-  background-color: #3cbec9;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-
-
-    .form button:hover {
-      background-color: #2aa7b1;
+        width: 50%; /* Make button wider */
+        margin: 30px auto; /* Adjust button margin */
+        padding: 12px;
+        font-size: 15px;
     }
 
     .form p {
-      margin-top: 10px;
-      font-size: 18px;
-      text-align: center;
+        font-size: 16px;
+    }
+}
+
+/* For screens smaller than 768px (e.g., larger mobile phones) */
+@media (max-width: 768px) {
+    .left-section {
+        height: 200px; /* Further reduce image section height */
     }
 
-    .form a {
-      color: #000;
-      font-weight: bold;
-      text-decoration: none;
+    .logo-img {
+        width: 60px; /* Smaller logo */
     }
 
+    .right-section {
+        padding: 20px 15px; /* Further reduce padding */
+    }
+
+    .right-section h2 {
+        font-size: 38px; /* Smaller heading */
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .form-box {
+        padding: 20px; /* Smaller form box padding */
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Lighter shadow */
+    }
+
+    .form label {
+        font-size: 16px; /* Smaller label font size */
+        padding: 15px 0 5px 0;
+    }
+
+    .form input {
+        padding: 15px; /* Smaller input padding */
+    }
+
+    .form button {
+        width: 60%; /* Even wider button */
+        margin: 25px auto;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .form p {
+        font-size: 15px;
+    }
+}
+
+/* For screens smaller than 480px (e.g., smaller mobile phones) */
+@media (max-width: 480px) {
+    .left-section {
+        height: 150px; /* Minimal height for the image */
+    }
+
+    .logo-img {
+        width: 50px; /* Smallest logo */
+    }
+
+    .right-section h2 {
+        font-size: 30px; /* Smallest heading */
+    }
+
+    .form-box {
+        padding: 15px; /* Smallest padding for form box */
+    }
+
+    .form label {
+        font-size: 14px; /* Smallest label font size */
+        padding: 10px 0 5px 0;
+    }
+
+    .form input {
+        padding: 12px; /* Smallest input padding */
+    }
+
+    .form button {
+        width: 75%; /* Max width for button */
+        margin: 20px auto;
+        font-size: 13px;
+    }
+
+    .form p {
+        font-size: 14px;
+    }
+}
