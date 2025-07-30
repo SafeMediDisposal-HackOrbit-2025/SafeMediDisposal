@@ -1,12 +1,3 @@
-
-body {
-  font-family: 'Poppins', sans-serif;
-  background: #fff;
-  color: #1a1a1a;
-  margin: 0;
-  padding: 0;
-}
-
 .text {
   max-width: 1100px;
   margin: 0 auto;
@@ -67,7 +58,7 @@ body {
   background-color: #333333;
   color: #fff;
   width: 100%;
-  height: 700px;
+  height: auto;
   display: flex;
   align-items: center;
   padding: 0px;
@@ -76,7 +67,6 @@ body {
   margin-top: 134px;
   overflow-x: hidden;
 }
-
 
 
 .block h1 {
@@ -98,8 +88,8 @@ body {
 }
 
 .block img {
-  width: 550px;
-  height: 700px;
+  max-width: 550px;
+  height: auto;
   border-top-right-radius: 355px;
   border-bottom-right-radius: 355px;
   object-fit: cover;
