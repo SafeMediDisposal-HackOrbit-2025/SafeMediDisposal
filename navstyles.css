@@ -13,6 +13,9 @@ body {
   top: 0;
   z-index: 1000;
   flex-wrap: nowrap;
+  box-sizing: border-box; /* ADD THIS */
+  width: 100%; /* ADD THIS */
+  overflow: hidden; /* ADD THIS to prevent horizontal scroll */
 }
 
 .logo {
@@ -68,6 +71,8 @@ body {
   align-items: center;
   gap: 15px;
   margin-left: 20px;
+  flex-shrink: 0; /* ADD THIS - prevents icons from shrinking */
+  min-width: fit-content;
 }
 
 .search-toggle-btn {
@@ -83,9 +88,16 @@ body {
   background-color: #1a243d;
 }
 
+.profile-icon {
+  display: inline-block; /* ADD THIS */
+  flex-shrink: 0; /* ADD THIS */
+  padding: 5px; /* ADD THIS for better click area */
+}
+
 .profile-icon i {
   font-size: 1.3rem;
   color: #2E3A59;
+  display: block; /* ADD THIS */
 }
 
 /* Hide label */
@@ -150,6 +162,11 @@ body {
   background-color: #1a243d;
 }
 
+@media (max-width: 992px) {
+  .navbar {
+    padding: 15px 40px; /* Reduce padding slightly */
+  }
+}
 
 /* 📱 Tablet & Mobile View */
 @media (max-width: 768px) {
@@ -158,8 +175,10 @@ body {
     flex-direction: row; /* Keep as row for logo and menu toggle alignment */
     align-items: center;
     justify-content: space-between; /* This ensures logo left, menu toggle right */
-    padding: 10px 15px;
+    padding: 10px 20px;
     position: relative;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .menu-toggle {
@@ -216,6 +235,7 @@ body {
     justify-content: flex-end;
     align-items: center;
     flex-shrink: 0;
+    margin-left: 10px;
   } 
 
 .search-wrapper {
@@ -250,6 +270,7 @@ body {
   .profile-icon,
   .menu-toggle {
     display: block;
+    padding: 3px;
     flex-shrink: 0; /* ⭐ ADD - prevents shrinking */
   }
 
@@ -274,12 +295,15 @@ body {
   }
 
   .icons{
-    gap: 5px;
+    gap: 8px;
+    margin-left: 5px;
   }
   .icons i {
     font-size: 1rem;
   }
-
+  .profile-icon {
+    margin-right: 5px; /* ADD THIS */
+  }
    .search-wrapper {
     padding: 12px 20px;
     top: 80px;
@@ -306,6 +330,19 @@ body {
 
 /* Extra Small Devices (320px and below) */
 @media (max-width: 320px) {
+  .navbar {
+    padding: 8px 12px; /* ADD THIS for very small screens */
+  }
+
+  .icons {
+    gap: 5px;
+    margin-left: 3px;
+  }
+
+  .profile-icon {
+    margin-right: 3px; /* ADD THIS */
+  }
+  
   .search-wrapper {
     padding: 10px 15px;
     top: 75px;
