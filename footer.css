@@ -1,6 +1,32 @@
+* Reset default margins and padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden; /* Prevents horizontal scrolling */
+}
+
+/* Fix for main container if you have one */
+.main-container,
+.wrapper,
+main {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+/* ENDS */
 footer {
   background-color: #50C2C9;
   width: 100%;
+  margin:0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 footer .logo {
@@ -27,22 +53,22 @@ footer .container h3 {
   margin-bottom: 10px;
 }
 
-footer .explore {
+.explore {
   margin-left: 60px;
 }
 
-footer .explore ul {
+.explore ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
   line-height: 30px;
 }
 
-footer .socials {
+.socials {
   margin-top: 10px;
 }
 
-footer .socials i {
+.socials i {
   font-size: 28px;
   margin-right: 10px;
   color: white;
@@ -50,15 +76,15 @@ footer .socials i {
   transition: transform 0.3s ease;
 }
 
-footer .socials i:hover {
+.socials i:hover {
   transform: scale(1.1);
 }
 
-footer .phone p, .mail p {
+.phone p, .mail p {
   font-weight: bolder;
 }
 
-footer .rights-reserved {
+.rights-reserved {
   color: #FFFFFF;
   text-align: center;
   margin: 0;
@@ -105,7 +131,7 @@ footer .rights-reserved {
     gap: 20px;
   }
 
- footer .explore {
+  .explore {
     margin-left: 0;
   }
 
@@ -126,29 +152,29 @@ footer .rights-reserved {
     font-size: 16px;
   }
 
- footer .about p {
+  .about p {
     margin-bottom: 20px;
   }
 
- footer .explore ul {
+  .explore ul {
     line-height: 35px;
   }
 
-  footer.socials {
+  .socials {
     margin-top: 15px;
     text-align: center;
   }
 
-  footer.socials i {
+  .socials i {
     font-size: 30px;
     margin: 0 15px;
   }
 
- footer .support {
+  .support {
     margin-top: 10px;
   }
 
- footer .rights-reserved {
+  .rights-reserved {
     font-size: 13px;
     padding: 25px 15px;
   }
@@ -179,24 +205,24 @@ footer .rights-reserved {
     line-height: 1.5;
   }
 
-  footer.about p {
+  .about p {
     margin-bottom: 15px;
   }
 
-  footer.explore ul {
+  .explore ul {
     line-height: 32px;
   }
 
-  footer.socials {
+  .socials {
     margin-top: 12px;
   }
 
-  footer .socials i {
+  .socials i {
     font-size: 26px;
     margin: 0 12px;
   }
 
-  footer .support p {
+  .support p {
     margin-bottom: 15px;
   }
 
@@ -204,7 +230,7 @@ footer .rights-reserved {
     margin-bottom: 8px;
   }
 
-  footer.rights-reserved {
+  .rights-reserved {
     font-size: 12px;
     padding: 20px 10px;
     line-height: 1.4;
@@ -242,12 +268,12 @@ footer .rights-reserved {
     font-size: 13px;
   }
 
-  footer.socials i {
+  .socials i {
     font-size: 24px;
     margin: 0 10px;
   }
 
-  footer.rights-reserved {
+  .rights-reserved {
     font-size: 11px;
     padding: 15px 8px;
   }
@@ -267,7 +293,7 @@ footer .rights-reserved {
     text-align: left;
   }
 
-  footer.support {
+  .support {
     grid-column: 1 / -1;
     text-align: center;
     margin-top: 15px;
@@ -275,13 +301,13 @@ footer .rights-reserved {
 
   footer .logo {
     width: 160px;
-    padding: 10px 30px;
+    padding: 10px 15px;
   }
 }
 
 /* 🔽 Accessibility improvements */
 @media (prefers-reduced-motion: reduce) {
-  footer.socials i {
+  .socials i {
     transition: none;
   }
   
@@ -296,11 +322,11 @@ footer .rights-reserved {
     border-top: 2px solid #FFFFFF;
   }
   
-  footer.socials i {
+  .socials i {
     border: 1px solid transparent;
   }
   
-  footer.socials i:hover {
+  .socials i:hover {
     border-color: #FFFFFF;
   }
 }
