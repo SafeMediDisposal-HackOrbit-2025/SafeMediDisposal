@@ -13,44 +13,59 @@
   <link rel="stylesheet" href="campaignstyles.css">
   <link rel="stylesheet" href="navstyles.css">
   <link rel="stylesheet" href="footer.css">
-  
-  <style>
-  
-  .custom-btn {
-    background-color: #50C2C9; /* custom teal */
-    color: white;
-    border-radius: 10px;
-  }
-
-  .custom-btn:hover {
-    background-color: #3A9FA5; /* darker shade on hover */
-  }
-
-  </style>
 
 </head>
 <body>
-  <header class="navbar">
-    <div class="logo">
-      <a href="home.html"> 
-        <img src="assets\logo.png" alt="SafeMediDisposal Logo">
-      </a>
-    </div>
-    <nav class="nav-links">
-      <a href="home.html">HOME</a>
-      <a href="services.html">SERVICES</a>
-      <a href="aboutus.html">ABOUT US</a>
-      <a href="contactus.html">CONTACT US</a>
-    </nav>
-    <div class="icons">
-      <div class="menu-toggle" id="menu-toggle">
+<header class="navbar">
+  <div class="logo">
+    <a href="home.html">
+      <img src="assets/logo.png" alt="SafeMediDisposal Logo">
+    </a>
+  </div>
+
+  <nav class="nav-links">
+    <a href="home.html" class="active">HOME</a>
+    <a href="services.html" >SERVICES</a>
+    <a href="aboutus.html">ABOUT US</a>
+    <a href="contactus.html">CONTACT US</a>
+  </nav>
+
+  <div class="icons">
+    <div class="menu-toggle" id="menu-toggle">
       <i class="fas fa-bars"></i>
     </div>
-    <div>
-      <a href="#"><i class="fas fa-search"></i></a>
-      <a href="profile.html" id="profile-link"><i class="fas fa-user"></i></a>
-    </div>
-  </header>
+
+    <!-- Search icon -->
+    <button id="search-toggle" aria-label="Search" class="search-toggle-btn">
+      <i class="fas fa-search"></i>
+    </button>
+
+    <!-- Profile icon -->
+    <a href="profile.html" id="profile-link" class="profile-icon">
+      <i class="fas fa-user"></i>
+    </a>
+  </div>
+</header>
+
+<!-- ✅ Now outside the header/icons -->
+<div class="search-wrapper" id="search-wrapper" style="display: none;">
+  <form id="search-form" class="feature-search-form">
+    <label for="feature-select" class="visually-hidden">Choose a feature</label>
+    <select id="feature-select" aria-label="Search by feature">
+      <option value="">-- Select a feature --</option>
+      <option value="easy-waste">Easy Waste Deposit</option>
+      <option value="reward-points">Earn Points</option>
+      <option value="redeem-rewards">Redeem Rewards</option>
+      <option value="track-history">Track Disposal History</option>
+      <option value="news-updates">News & Updates</option>
+      <option value="smart-scan">Smart Waste Scan</option>
+      <option value="rfid-tracking">RFID-Enabled Tracking</option>
+      <option value="pickup-request">Request Pickup</option>
+      <option value="campaigns">Explore Campaigns</option>
+    </select>
+    <button type="submit" class="search-btn">Go</button>
+  </form>
+</div>
 
   <section class="campaigns-section">
     <div class="explore-campaigns">
@@ -146,5 +161,6 @@
     </footer>
     <script src="navbar.js"></script>
     <script src="footer.js"></script>
+    <script src="search.js"></script>
 </body>
 </html>
