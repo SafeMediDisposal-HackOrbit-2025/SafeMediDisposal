@@ -97,6 +97,21 @@
     transform: scale(1.2);
 }
 
+.custom-btn {
+  padding: 10px 20px;
+  background-color: #4ac6cb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.custom-btn:hover {
+  background-color: #3aaeb2;
+}
+
 /* Tablets and smaller */
 @media (max-width: 992px) {
   .explore-campaigns {
@@ -133,6 +148,72 @@
   .explore-text p {
     font-size: 14px;
   }
+
+  .explore-text button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  #services .card {
+    width: 100%;
+    height: auto;
+    border-radius: 30px;
+  }
+
+  .img-container,
+  #services .card-img-top {
+    height: 200px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+  }
+
+  .explore-text {
+    text-align: center;
+  }
+
+  .explore-campaigns {
+    margin: 20px 10px;
+  }
+
+  .explore-text button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .explore-text h3 {
+    font-size: 16px;
+  }
+
+  .explore-text p {
+    font-size: 13px;
+  }
+
+  .explore-text button {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+
+  .campaigns-section {
+    padding: 20px 10px;
+  }
+
+  .card-title {
+    font-size: 16px;
+  }
+
+  .card-text {
+    font-size: 14px;
+  }
+
+  .custom-btn {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+}
 
   .explore-text button {
     font-size: 14px;
