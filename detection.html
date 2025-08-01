@@ -5,44 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Medical Waste Detection</title>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
   <style>
     :root {
-      --primary: #50C2C9;
-      --primary-dark: #3ba0a6;
-      --primary-light: #7dd3d8;
-      --secondary: #2c8a8f;
-      --accent: #50C2C9;
-      --cyan-50: #ecfeff;
-      --cyan-100: #cffafe;
-      --cyan-200: #a5f3fc;
-      --cyan-500: #50C2C9;
-      --cyan-600: #3ba0a6;
-      --cyan-700: #2c8a8f;
-      --cyan-800: #1f6b70;
-      --cyan-900: #164e52;
-      
-      --white: #ffffff;
-      --gray-50: #f9fafb;
-      --gray-100: #f3f4f6;
-      --gray-200: #e5e7eb;
-      --gray-300: #d1d5db;
-      --gray-400: #9ca3af;
-      --gray-500: #6b7280;
-      --gray-600: #4b5563;
-      --gray-700: #374151;
-      --gray-800: #1f2937;
-      --gray-900: #111827;
-      
-      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-      --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-      
-      --gradient-primary: linear-gradient(135deg, #50C2C9 0%, #3ba0a6 50%, #2c8a8f 100%);
-      --gradient-secondary: linear-gradient(135deg, #2c8a8f 0%, #164e52 100%);
-      --gradient-light: linear-gradient(135deg, #ecfeff 0%, #cffafe 100%);
+      --primary-color: #50c2c9;
+      --primary-dark: #028090;
+      --secondary-color: #F0F3F4;
+      --background-color: #CADBDB;
+      --text-color: #2C3E50;
+      --text-light: #808B96;
+      --white-color: #FFFFFF;
+      --card-shadow: rgba(0, 0, 0, 0.05);
+      --success-color: #27AE60;
+      --danger-color: #E74C3C;
+      --dark-card-background: #171821;
+      --border-color: rgba(0, 0, 0, 0.08);
     }
 
     * {
@@ -52,41 +32,140 @@
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: var(--gradient-light);
-      min-height: 100vh;
-      padding: 2rem;
-      color: var(--gray-800);
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
       line-height: 1.6;
+      min-height: 100vh;
     }
 
-    /* Header Styles */
-    h1 {
-      background: var(--gradient-primary);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 700;
-      margin-bottom: 2rem;
+    /* Main Container */
+    .app-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 250px;
+      flex-shrink: 0;
+      background: var(--primary-color);
+      color: var(--white-color);
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 3rem;
+      padding: 0 1rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .sidebar-header .logo {
+      max-height: 70px;
+      width: auto;
+      margin-right: 0.5rem;
+    }
+
+    .sidebar-nav ul {
+      list-style: none;
+    }
+
+    .sidebar-nav a {
+      display: flex;
+      align-items: center;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      margin: 0.5rem 0;
+      transition: background-color 0.3s;
+      color: var(--white-color);
+      text-decoration: none;
+    }
+
+    .sidebar-nav a.active, .sidebar-nav a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .sidebar-nav a.active {
+      font-weight: 600;
+    }
+
+    .sidebar-nav a i {
+      margin-right: 1rem;
+      font-size: 1.2rem;
+      width: 20px;
       text-align: center;
-      position: relative;
     }
 
-    h1::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 4px;
-      background: var(--gradient-primary);
-      border-radius: 2px;
+    /* Main Content */
+    .main-content {
+      flex-grow: 1;
+      padding: 2rem;
+      overflow-y: auto;
     }
 
-    /* Control Buttons */
-    .controls {
+    .main-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .page-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-color);
+      margin: 0;
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .user-profile i {
+      font-size: 1.5rem;
+      color: var(--text-light);
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .user-profile i:hover {
+      color: var(--primary-color);
+    }
+
+    /* Card Styles */
+    .card {
+      background-color: var(--white-color);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px var(--card-shadow);
+      border: 1px solid var(--border-color);
+      margin-bottom: 1.5rem;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-color);
+      margin-bottom: 1rem;
+    }
+
+    /* Detection Grid */
+    .detection-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Control Section */
+    .control-section {
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
@@ -94,123 +173,92 @@
       margin-bottom: 2rem;
     }
 
-    input[type="file"], button {
-      margin: 0;
-      padding: 0.875rem 1.75rem;
+    .btn {
+      padding: 0.8rem 1.5rem;
       font-size: 1rem;
       font-weight: 500;
       border: none;
-      background: var(--gradient-primary);
-      color: var(--white);
-      border-radius: 12px;
+      background: var(--primary-color);
+      color: var(--white-color);
+      border-radius: 8px;
       cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: var(--shadow-md);
-      position: relative;
-      overflow: hidden;
-    }
-
-    input[type="file"]::before {
-      content: '📁 Choose Image';
-      display: block;
-    }
-
-    button:hover, input[type="file"]:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-lg);
-      background: var(--gradient-secondary);
-    }
-
-    button:active, input[type="file"]:active {
-      transform: translateY(0);
-      box-shadow: var(--shadow-md);
-    }
-
-    /* Add ripple effect */
-    button::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.3);
-      transition: all 0.3s;
-      transform: translate(-50%, -50%);
-    }
-
-    button:active::before {
-      width: 300px;
-      height: 300px;
-    }
-
-    /* Media Elements */
-    .media-container {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      margin-bottom: 2rem;
-      max-width: 1200px;
-      margin-inline: auto;
-    }
-
-    @media (min-width: 768px) {
-      .media-container {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    .media-card {
-      background: var(--white);
-      border-radius: 20px;
-      padding: 1.5rem;
-      box-shadow: var(--shadow-xl);
-      border: 1px solid var(--cyan-100);
       transition: all 0.3s ease;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-width: 160px;
+      justify-content: center;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn-secondary {
+      background: var(--secondary-color);
+      color: var(--text-color);
+    }
+
+    .btn-secondary:hover {
+      background: #E8EEEF;
+    }
+
+    /* File Input Styling */
+    .file-input-wrapper {
       position: relative;
       overflow: hidden;
+      display: inline-block;
     }
 
-    .media-card::before {
-      content: '';
+    .file-input-wrapper input[type=file] {
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: var(--gradient-primary);
+      left: -9999px;
     }
 
-    .media-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow-2xl);
+    .file-input-label {
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 500;
+      border: none;
+      background: var(--primary-color);
+      color: var(--white-color);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-width: 160px;
+      justify-content: center;
     }
 
-    .media-card h3 {
-      color: var(--cyan-700);
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
+    .file-input-label:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Media Display */
+    .media-display {
       text-align: center;
+      margin-bottom: 1rem;
     }
 
-    #preview, #video {
-      width: 100%;
+    .media-display img, .media-display video {
       max-width: 100%;
       height: auto;
-      aspect-ratio: 4 / 3;
-      object-fit: contain;
-      border-radius: 16px;
-      box-shadow: var(--shadow-md);
-      border: 3px solid var(--cyan-100);
-      background: var(--gray-50);
-      transition: all 0.3s ease;
-    }
-
-    #preview:hover, #video:hover {
-      border-color: var(--primary);
-      box-shadow: var(--shadow-lg);
+      max-height: 400px;
+      border-radius: 8px;
+      border: 2px solid var(--secondary-color);
+      background: var(--secondary-color);
     }
 
     #video {
@@ -218,125 +266,106 @@
     }
 
     /* Results Section */
-    #results {
+    .results-section {
       margin-top: 2rem;
-      padding: 2rem;
-      background: var(--white);
-      border-radius: 24px;
-      box-shadow: var(--shadow-xl);
-      text-align: left;
-      max-width: 900px;
-      margin-inline: auto;
-      border: 1px solid var(--cyan-100);
-      position: relative;
-      overflow: hidden;
     }
 
-    #results::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 6px;
-      background: var(--gradient-primary);
-    }
-
-    #results h3 {
-      color: var(--cyan-700);
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    #results h3::before {
-      content: '🔍';
-      font-size: 1.2rem;
-    }
-
-    /* Detection Items */
-    .detection {
-      border-bottom: 1px solid var(--cyan-100);
+    .detection-item {
+      border-bottom: 1px solid var(--secondary-color);
       padding: 1.5rem 0;
       transition: all 0.3s ease;
-      position: relative;
     }
 
-    .detection:last-child {
+    .detection-item:last-child {
       border-bottom: none;
     }
 
-    .detection:hover {
-      background: var(--cyan-50);
+    .detection-item:hover {
+      background: rgba(80, 194, 201, 0.05);
       margin: 0 -1rem;
       padding: 1.5rem 1rem;
-      border-radius: 12px;
-      transform: translateX(5px);
+      border-radius: 8px;
     }
 
-    .detection strong {
-      color: var(--primary);
+    .detection-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .detection-title {
       font-size: 1.2rem;
       font-weight: 600;
+      color: var(--primary-dark);
       text-transform: capitalize;
-      display: inline-block;
-      margin-bottom: 0.5rem;
     }
 
-    .detection-info {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-
-    .info-item {
-      background: var(--cyan-50);
-      padding: 0.75rem 1rem;
-      border-radius: 8px;
-      border-left: 4px solid var(--primary);
-      font-size: 0.9rem;
-      color: var(--gray-700);
-    }
-
-    .info-item strong {
-      color: var(--cyan-700);
-      font-size: 0.9rem;
-      margin-bottom: 0;
-    }
-
-    .confidence {
-      display: inline-block;
-      background: var(--gradient-primary);
-      color: var(--white);
-      padding: 0.25rem 0.75rem;
+    .confidence-badge {
+      background: var(--success-color);
+      color: var(--white-color);
+      padding: 0.3rem 0.8rem;
       border-radius: 20px;
       font-size: 0.85rem;
       font-weight: 500;
-      margin-left: 1rem;
     }
 
-    /* Loading State */
-    .loading {
+    .detection-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+
+    .detail-item {
+      background: var(--secondary-color);
+      padding: 0.8rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+
+    .detail-item strong {
+      color: var(--text-color);
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+
+    /* Status Messages */
+    .status-message {
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      font-weight: 500;
       text-align: center;
-      padding: 2rem;
-      color: var(--cyan-600);
-      font-size: 1.1rem;
     }
 
-    .loading::after {
-      content: '';
+    .status-success {
+      background: rgba(39, 174, 96, 0.1);
+      color: var(--success-color);
+      border: 1px solid rgba(39, 174, 96, 0.2);
+    }
+
+    .status-error {
+      background: rgba(231, 76, 60, 0.1);
+      color: var(--danger-color);
+      border: 1px solid rgba(231, 76, 60, 0.2);
+    }
+
+    .status-loading {
+      background: rgba(80, 194, 201, 0.1);
+      color: var(--primary-dark);
+      border: 1px solid rgba(80, 194, 201, 0.2);
+      position: relative;
+    }
+
+    .loading-spinner {
       display: inline-block;
-      width: 24px;
-      height: 24px;
-      border: 3px solid var(--cyan-200);
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(80, 194, 201, 0.3);
       border-radius: 50%;
-      border-top-color: var(--primary);
+      border-top-color: var(--primary-color);
       animation: spin 1s linear infinite;
-      margin-left: 1rem;
+      margin-left: 0.5rem;
     }
 
     @keyframes spin {
@@ -347,81 +376,128 @@
     .empty-state {
       text-align: center;
       padding: 3rem 1rem;
-      color: var(--gray-500);
+      color: var(--text-light);
     }
 
-    .empty-state::before {
-      content: '🔍';
+    .empty-state i {
       font-size: 3rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
       display: block;
+    }
+
+    .empty-state p {
+      font-size: 1.1rem;
+    }
+
+    /* Summary Cards */
+    .summary-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
       margin-bottom: 1rem;
     }
 
-    /* Error State */
-    .error {
-      color: #ef4444;
+    .summary-card {
+      background-color: var(--dark-card-background);
+      color: var(--white-color);
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: none;
+      box-shadow: 0 4px 6px var(--card-shadow);
       text-align: center;
-      padding: 2rem;
-      background: #fef2f2;
-      border-radius: 12px;
-      border: 1px solid #fecaca;
     }
 
-    /* Success State */
-    .success {
-      background: var(--cyan-50);
-      border: 1px solid var(--cyan-200);
-      border-radius: 12px;
-      padding: 1rem;
+    .summary-card i {
+      font-size: 2rem;
       margin-bottom: 1rem;
+      color: var(--primary-color);
     }
 
-    .success::before {
-      content: '✅ ';
-      color: var(--primary);
+    .summary-card h4 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .summary-card p {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.9rem;
+    }
+
+    /* Gamification Button */
+    .gamification-section {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--secondary-color);
+    }
+
+    .btn-gamification {
+      background: var(--dark-card-background);
+      color: var(--white-color);
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .btn-gamification:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
     }
 
     /* Responsive Design */
     @media (max-width: 768px) {
-      body {
+      .sidebar {
+        display: none;
+      }
+
+      .main-content {
         padding: 1rem;
       }
 
-      .controls {
+      .detection-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .control-section {
         flex-direction: column;
         align-items: center;
       }
 
-      input[type="file"], button {
+      .btn, .file-input-label {
         width: 100%;
         max-width: 300px;
       }
 
-      .media-card {
-        padding: 1rem;
+      .page-title {
+        font-size: 1.5rem;
       }
 
-      #results {
-        padding: 1.5rem;
-      }
-
-      .detection-info {
-        grid-template-columns: 1fr;
+      .main-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
       }
     }
 
-    @media (max-width: 480px) {
-      h1 {
-        font-size: 1.8rem;
+    @media (max-width: 576px) {
+      .summary-cards {
+        grid-template-columns: 1fr;
       }
 
-      .detection {
-        padding: 1rem 0;
-      }
-
-      .detection:hover {
-        margin: 0 -0.5rem;
-        padding: 1rem 0.5rem;
+      .detection-details {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -429,72 +505,167 @@
       display: none;
     }
 
-    /* Add subtle animations */
+    /* Animation Classes */
+    .fade-in {
+      animation: fadeIn 0.5s ease-out;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .detection {
-      animation: fadeIn 0.5s ease-out;
+    .detection-item {
+      animation: slideInUp 0.4s ease-out;
     }
 
-    /* Floating elements */
-    .floating {
-      animation: float 3s ease-in-out infinite;
+    @keyframes slideInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
+    /* Progress Indicator */
+    .progress-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .progress-bar {
+      flex: 1;
+      height: 4px;
+      background: var(--secondary-color);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--primary-color);
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+
+    .progress-text {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      min-width: 40px;
     }
   </style>
 </head>
 <body>
-  <h1 class="floating">Medical Waste Detection</h1>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="assets/whitelogo-Photoroom.jpg" alt="HealthWaste Logo" class="logo">
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="dashboard.html"><i class="fa-solid fa-table-columns"></i> Dashboard</a></li>
+          <li><a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a></li>
+          <li><a href="qrcodescanner.html"><i class="fa-solid fa-qrcode"></i></i> QR Code</a></li>
+          <li><a href="#"><i class="fa-solid fa-camera"></i> Detection</a></li>
+          <li><a href="gamification.html"><i class="fa-solid fa-trophy"></i> Results</a></li>
+          <li><a href="pickup.html"><i class="fa-solid fa-calendar-days"></i> Schedule</a></li>
+          <li><a href="contactus.html"><i class="fa-solid fa-message"></i> Message</a></li>
+          <li><a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a></li>
+          <li><a href="campaign.html"><i class="fa-solid fa-clock-rotate-left"></i> History</a></li>
+        </ul>
+      </nav>
+    </aside>
 
-  <div class="controls">
-    <input type="file" id="fileInput" accept="image/*" />
-    <button onclick="startCamera()">📷 Capture via Webcam</button>
-    <button onclick="captureImage()">📸 Capture Image</button>
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="main-header">
+        <h1 class="page-title">Medical Waste Detection</h1>
+        <div class="user-profile">
+          <i class="fa-regular fa-bell"></i>
+          <i class="fa-solid fa-user-circle"></i>
+        </div>
+      </header>
+
+      <!-- Control Section -->
+      <div class="card">
+        <h3 class="card-title">Detection Controls</h3>
+        <div class="control-section">
+          <div class="file-input-wrapper">
+            <input type="file" id="fileInput" accept="image/*" />
+            <label for="fileInput" class="file-input-label">
+              <i class="fa-solid fa-upload"></i>
+              Choose Image
+            </label>
+          </div>
+          <button class="btn" onclick="startCamera()">
+            <i class="fa-solid fa-camera"></i>
+            Start Camera
+          </button>
+          <button class="btn btn-secondary" onclick="captureImage()">
+            <i class="fa-solid fa-camera-retro"></i>
+            Capture Image
+          </button>
+        </div>
+      </div>
+
+      <!-- Media Display Grid -->
+      <div class="detection-grid">
+        <div class="card">
+          <h3 class="card-title">
+            <i class="fa-solid fa-video"></i>
+            Camera View
+          </h3>
+          <div class="media-display">
+            <video id="video" autoplay playsinline></video>
+            <div class="empty-state" id="camera-placeholder">
+              <i class="fa-solid fa-camera"></i>
+              <p>Click "Start Camera" to begin live detection</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title">
+            <i class="fa-solid fa-image"></i>
+            Image Preview
+          </h3>
+          <div class="media-display">
+            <img id="preview" src="" alt="" style="display: none;" />
+            <div class="empty-state" id="image-placeholder">
+              <i class="fa-solid fa-file-image"></i>
+              <p>Upload an image to see preview</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <canvas id="canvas" style="display:none;"></canvas>
+
+      <!-- Results Section -->
+      <div class="card results-section">
+        <h3 class="card-title">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          Detection Results
+        </h3>
+        <div id="results">
+          <div class="empty-state">
+            <i class="fa-solid fa-search"></i>
+            <p>Upload an image or capture a photo to start detecting medical waste items</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gamification Link -->
+      <div class="gamification-section">
+        <a href="gamification.html">
+          <button class="btn-gamification">
+            <i class="fa-solid fa-trophy"></i>
+            View Gamification Results
+          </button>
+        </a>
+      </div>
+    </main>
   </div>
-
-  <div class="media-container">
-    <div class="media-card">
-      <h3>📷 Camera View</h3>
-      <video id="video" autoplay playsinline></video>
-    </div>
-    <div class="media-card">
-      <h3>🖼️ Image Preview</h3>
-      <img id="preview" src="" alt="Upload an image to see preview" />
-    </div>
-  </div>
-
-  <canvas id="canvas" style="display:none;"></canvas>
-  <div id="results">
-    <div class="empty-state">
-      Upload an image or capture a photo to start detecting medical waste items.
-    </div>
-  </div>
-
-  <div style="text-align: center; margin-top: 2rem;">
-    <a href="gamification.html">
-      <button style="
-        padding: 0.75rem 1.5rem;
-        font-size: 1rem;
-        border-radius: 0.5rem;
-        background-color: #0f766e;
-        color: white;
-        border: none;
-        cursor: pointer;
-        transition: background 0.3s ease;
-      ">
-        🎮 View Gamification Results
-      </button>
-    </a>
-  </div>
-
-
 
 <script>
   const fileInput = document.getElementById('fileInput');
@@ -502,22 +673,25 @@
   const results = document.getElementById('results');
   const video = document.getElementById('video');
   const canvas = document.getElementById('canvas');
+  const cameraPlaceholder = document.getElementById('camera-placeholder');
+  const imagePlaceholder = document.getElementById('image-placeholder');
   let stream;
 
   fileInput.addEventListener('change', () => {
     const file = fileInput.files[0];
-    const reader = new FileReader();
+    if (!file) return;
 
+    const reader = new FileReader();
     reader.onloadend = () => {
       const base64Image = reader.result.split(',')[1];
       preview.src = reader.result;
+      preview.style.display = 'block';
+      imagePlaceholder.style.display = 'none';
+      showLoading();
       detectWaste(base64Image);
     };
 
-    if (file) {
-      reader.readAsDataURL(file);
-      results.innerHTML = '<div class="loading">Analyzing image for medical waste...</div>';
-    }
+    reader.readAsDataURL(file);
   });
 
   function startCamera() {
@@ -527,17 +701,21 @@
           stream = s;
           video.srcObject = stream;
           video.style.display = "block";
+          cameraPlaceholder.style.display = "none";
         })
         .catch(err => {
-          alert("Could not access webcam: " + err.message);
+          showError("Could not access webcam: " + err.message);
         });
     } else {
-      alert("Webcam not supported on this browser.");
+      showError("Webcam not supported on this browser.");
     }
   }
 
   function captureImage() {
-    if (!stream) return alert("Start the camera first.");
+    if (!stream) {
+      showError("Please start the camera first.");
+      return;
+    }
 
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
@@ -547,8 +725,30 @@
     const dataURL = canvas.toDataURL("image/jpeg");
     const base64Image = dataURL.split(',')[1];
     preview.src = dataURL;
-    results.innerHTML = '<div class="loading">Analyzing captured image...</div>';
+    preview.style.display = 'block';
+    imagePlaceholder.style.display = 'none';
+    showLoading();
     detectWaste(base64Image);
+  }
+
+  function showLoading() {
+    results.innerHTML = `
+      <div class="status-message status-loading">
+        <i class="fa-solid fa-spinner fa-spin"></i>
+        Analyzing image for medical waste...
+        <div class="loading-spinner"></div>
+      </div>
+    `;
+  }
+
+  function showError(message) {
+    results.innerHTML = `
+      <div class="status-message status-error">
+        <i class="fa-solid fa-exclamation-triangle"></i>
+        Error: ${message}
+        <br><small style="margin-top: 0.5rem; display: block;">Please try again with a different image.</small>
+      </div>
+    `;
   }
 
   function detectWaste(base64Image) {
@@ -568,67 +768,127 @@
 
       if (predictions.length === 0) {
         results.innerHTML = `
-          <div class="success">
+          <div class="status-message status-success">
+            <i class="fa-solid fa-check-circle"></i>
             No medical waste detected in this image.
           </div>
         `;
         return;
       }
 
-      // Count each item type (gloves, syringe, etc.)
+      // Count each item type
       const counts = {};
       predictions.forEach(p => {
         const item = p.class.toLowerCase();
         counts[item] = (counts[item] || 0) + 1;
       });
 
-      // Generate count summary
-      const countSummary = Object.entries(counts)
-        .map(([item, count]) => `<li><strong>${item}:</strong> ${count}</li>`)
-        .join("");
+      // Generate summary cards
+      const summaryCards = Object.entries(counts)
+        .map(([item, count]) => {
+          const icons = {
+            'gloves': 'fa-hand',
+            'syringe': 'fa-syringe',
+            'needle': 'fa-location-pin',
+            'mask': 'fa-head-side-mask',
+            'bandage': 'fa-band-aid'
+          };
+          const icon = icons[item] || 'fa-trash';
+          
+          return `
+            <div class="summary-card">
+              <i class="fa-solid ${icon}"></i>
+              <h4>${count}</h4>
+              <p>${item.charAt(0).toUpperCase() + item.slice(1)}${count > 1 ? 's' : ''}</p>
+            </div>
+          `;
+        }).join("");
 
-      // Generate details
-      const details = predictions.map(p => `
-        <div class="detection">
-          <strong>${p.class}</strong>
-          <span class="confidence">${(p.confidence * 100).toFixed(1)}% confident</span>
-          <div class="detection-info">
-            <div class="info-item">
-              <strong>Position X:</strong> ${Math.round(p.x)}px
+      // Generate detailed results
+      const details = predictions.map((p, index) => `
+        <div class="detection-item" style="animation-delay: ${index * 0.1}s;">
+          <div class="detection-header">
+            <span class="detection-title">${p.class}</span>
+            <span class="confidence-badge">${(p.confidence * 100).toFixed(1)}% confident</span>
+          </div>
+          <div class="detection-details">
+            <div class="detail-item">
+              <strong>Position X</strong>
+              ${Math.round(p.x)}px
             </div>
-            <div class="info-item">
-              <strong>Position Y:</strong> ${Math.round(p.y)}px
+            <div class="detail-item">
+              <strong>Position Y</strong>
+              ${Math.round(p.y)}px
             </div>
-            <div class="info-item">
-              <strong>Width:</strong> ${Math.round(p.width)}px
+            <div class="detail-item">
+              <strong>Width</strong>
+              ${Math.round(p.width)}px
             </div>
-            <div class="info-item">
-              <strong>Height:</strong> ${Math.round(p.height)}px
+            <div class="detail-item">
+              <strong>Height</strong>
+              ${Math.round(p.height)}px
             </div>
+          </div>
+          <div class="progress-indicator">
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: ${p.confidence * 100}%"></div>
+            </div>
+            <span class="progress-text">${(p.confidence * 100).toFixed(0)}%</span>
           </div>
         </div>
       `).join("");
 
-      sessionStorage.setItem("wasteCounts", JSON.stringify(counts));
+      // Store data for gamification
+      const wasteData = JSON.stringify(counts);
+      try {
+        sessionStorage.setItem("wasteCounts", wasteData);
+      } catch(e) {
+        // Fallback for environments without sessionStorage
+        window.wasteCounts = counts;
+      }
 
       results.innerHTML = `
-        <div class="success">
-          Detected ${predictions.length} item${predictions.length > 1 ? 's' : ''}:
-          <ul style="margin-top: 0.75rem; padding-left: 1.25rem;">${countSummary}</ul>
+        <div class="status-message status-success fade-in">
+          <i class="fa-solid fa-check-circle"></i>
+          Detected ${predictions.length} item${predictions.length > 1 ? 's' : ''} of medical waste
         </div>
-        <h3>Detection Results</h3>
+        
+        <div class="summary-cards fade-in">
+          ${summaryCards}
+        </div>
+        
+        <h4 style="margin: 2rem 0 1rem 0; color: var(--text-color); font-weight: 600;">
+          <i class="fa-solid fa-list"></i>
+          Detailed Analysis
+        </h4>
+        
         ${details}
       `;
     })
     .catch(error => {
-      results.innerHTML = `
-        <div class="error">
-          ❌ Error: ${error.message}
-          <br><small>Please try again with a different image.</small>
-        </div>
-      `;
+      showError(error.message);
     });
   }
+
+  // Add smooth transitions
+  document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('.card');
+    cards.forEach((card, index) => {
+      card.style.animationDelay = `${index * 0.1}s`;
+      card.classList.add('fade-in');
+    });
+  });
+
+  // Enhanced button interactions
+  document.querySelectorAll('.btn, .file-input-label, .btn-gamification').forEach(btn => {
+    btn.addEventListener('mouseenter', function() {
+      this.style.transform = 'translateY(-2px)';
+    });
+    
+    btn.addEventListener('mouseleave', function() {
+      this.style.transform = '';
+    });
+  });
 </script>
 
 </body>
