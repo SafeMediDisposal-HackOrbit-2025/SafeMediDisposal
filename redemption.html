@@ -4,148 +4,179 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Point Redemption - Medical Waste Detection</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
   <style>
     :root {
-      --primary: #50C2C9;
-      --primary-dark: #3ba0a6;
-      --primary-light: #7dd3d8;
-      --secondary: #2c8a8f;
-      --accent: #50C2C9;
-      --success: #10b981;
-      --warning: #f59e0b;
-      --error: #ef4444;
-      
-      --white: #ffffff;
-      --gray-50: #f9fafb;
-      --gray-100: #f3f4f6;
-      --gray-200: #e5e7eb;
-      --gray-300: #d1d5db;
-      --gray-400: #9ca3af;
-      --gray-500: #6b7280;
-      --gray-600: #4b5563;
-      --gray-700: #374151;
-      --gray-800: #1f2937;
-      --gray-900: #111827;
-      
-      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-      --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-      
-      --gradient-primary: linear-gradient(135deg, #50C2C9 0%, #3ba0a6 50%, #2c8a8f 100%);
-      --gradient-secondary: linear-gradient(135deg, #2c8a8f 0%, #164e52 100%);
-      --gradient-light: linear-gradient(135deg, #ecfeff 0%, #cffafe 100%);
-      --gradient-success: linear-gradient(135deg, #10b981 0%, #059669 100%);
-      --gradient-gold: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      --primary-color: #50c2c9;
+      --primary-dark: #028090;
+      --secondary-color: #F0F3F4;
+      --background-color: #CADBDB;
+      --text-color: #2C3E50;
+      --text-light: #808B96;
+      --white-color: #FFFFFF;
+      --card-shadow: rgba(0, 0, 0, 0.05);
+      --success-color: #27AE60;
+      --danger-color: #E74C3C;
+      --warning-color: #F39C12;
+      --info-color: #3498DB;
+      --dark-card-background: #171821;
     }
 
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: var(--gradient-light);
-      min-height: 100vh;
-      padding: 2rem;
-      color: var(--gray-800);
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      height: 100vh;
       line-height: 1.6;
     }
 
-    /* Header Styles */
-    h1 {
-      background: var(--gradient-primary);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 700;
-      margin-bottom: 2rem;
+    .app-container {
+      display: flex;
+      height: 100vh;
+    }
+
+    .sidebar {
+      width: 250px;
+      flex-shrink: 0;
+      background: var(--primary-color);
+      color: var(--white-color);
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 3rem;
+      padding: 0 1rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .sidebar-header .logo {
+      max-height: 70px;
+      width: auto;
+      margin-right: 0.5rem;
+    }
+
+    .sidebar-nav ul {
+      list-style: none;
+    }
+
+    .sidebar-nav a {
+      display: flex;
+      align-items: center;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      margin: 0.5rem 0;
+      transition: background-color 0.3s;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .sidebar-nav a.active, .sidebar-nav a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .sidebar-nav a.active {
+      font-weight: 600;
+    }
+
+    .sidebar-nav a i {
+      margin-right: 1rem;
+      font-size: 1.2rem;
+      width: 20px;
       text-align: center;
-      position: relative;
     }
 
-    h1::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 4px;
-      background: var(--gradient-primary);
-      border-radius: 2px;
-    }
-
-    /* Main Container */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-
-    @media (min-width: 768px) {
-      .container {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    /* Card Styles */
-    .card {
-      background: var(--white);
-      border-radius: 20px;
+    .main-content {
+      flex-grow: 1;
       padding: 2rem;
-      box-shadow: var(--shadow-xl);
-      border: 1px solid rgba(80, 194, 201, 0.1);
-      transition: all 0.3s ease;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .main-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .page-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+    }
+
+    .user-profile i {
+      font-size: 1.5rem;
+      color: var(--text-light);
+      margin-right: 1rem;
+      cursor: pointer;
+    }
+
+    .card {
+      background-color: var(--white-color);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px var(--card-shadow);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      margin-bottom: 1rem;
+    }
+
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--text-color);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .redemption-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Balance Card */
+    .balance-card {
+      background: var(--primary-color);
+      color: var(--white-color);
+      text-align: center;
       position: relative;
       overflow: hidden;
     }
 
-    .card::before {
+    .balance-card::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       height: 4px;
-      background: var(--gradient-primary);
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow-2xl);
-    }
-
-    .card h2 {
-      color: var(--primary-dark);
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    /* Balance Card */
-    .balance-card {
-      text-align: center;
-      background: var(--gradient-primary);
-      color: var(--white);
-    }
-
-    .balance-card::before {
-      background: var(--white);
-    }
-
-    .balance-card h2 {
-      color: var(--white);
+      background: var(--white-color);
     }
 
     .balance-info {
@@ -166,6 +197,12 @@
       font-size: 2rem;
       font-weight: 700;
       margin-bottom: 0.5rem;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
     }
 
     .balance-label {
@@ -184,8 +221,8 @@
 
     /* Redemption Options */
     .redemption-option {
-      background: var(--gray-50);
-      border: 2px solid var(--gray-200);
+      background: var(--secondary-color);
+      border: 2px solid rgba(0, 0, 0, 0.1);
       border-radius: 12px;
       padding: 1.5rem;
       margin-bottom: 1rem;
@@ -195,13 +232,13 @@
     }
 
     .redemption-option:hover {
-      border-color: var(--primary);
-      background: var(--white);
+      border-color: var(--primary-color);
+      background: var(--white-color);
       transform: translateX(5px);
     }
 
     .redemption-option.selected {
-      border-color: var(--primary);
+      border-color: var(--primary-color);
       background: rgba(80, 194, 201, 0.05);
     }
 
@@ -210,8 +247,8 @@
       position: absolute;
       top: 1rem;
       right: 1rem;
-      background: var(--primary);
-      color: var(--white);
+      background: var(--primary-color);
+      color: var(--white-color);
       width: 24px;
       height: 24px;
       border-radius: 50%;
@@ -225,7 +262,7 @@
     .option-title {
       font-weight: 600;
       font-size: 1.1rem;
-      color: var(--gray-800);
+      color: var(--text-color);
       margin-bottom: 0.5rem;
       display: flex;
       align-items: center;
@@ -234,13 +271,13 @@
 
     .option-details {
       font-size: 0.9rem;
-      color: var(--gray-600);
+      color: var(--text-light);
       margin-bottom: 0.75rem;
     }
 
     .option-value {
       font-weight: 600;
-      color: var(--primary);
+      color: var(--primary-color);
       font-size: 1.1rem;
     }
 
@@ -249,23 +286,24 @@
       display: none;
       margin-top: 1rem;
       padding: 1rem;
-      background: var(--white);
+      background: var(--white-color);
       border-radius: 8px;
-      border: 1px solid var(--gray-300);
+      border: 1px solid rgba(0, 0, 0, 0.1);
     }
 
     .custom-amount input {
       width: 100%;
       padding: 0.75rem;
-      border: 1px solid var(--gray-300);
+      border: 1px solid rgba(0, 0, 0, 0.1);
       border-radius: 6px;
       font-size: 1rem;
       margin-top: 0.5rem;
+      font-family: 'Poppins', sans-serif;
     }
 
     .custom-amount input:focus {
       outline: none;
-      border-color: var(--primary);
+      border-color: var(--primary-color);
       box-shadow: 0 0 0 3px rgba(80, 194, 201, 0.1);
     }
 
@@ -273,7 +311,7 @@
     .action-buttons {
       display: flex;
       gap: 1rem;
-      margin-top: 2rem;
+      margin-top: 1rem;
     }
 
     .btn {
@@ -287,17 +325,22 @@
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
     }
 
     .btn-primary {
-      background: var(--gradient-primary);
-      color: var(--white);
-      box-shadow: var(--shadow-md);
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+      color: var(--white-color);
+      box-shadow: 0 4px 6px var(--card-shadow);
     }
 
-    .btn-primary:hover {
+    .btn-primary:hover:not(:disabled) {
       transform: translateY(-2px);
-      box-shadow: var(--shadow-lg);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     }
 
     .btn-primary:disabled {
@@ -307,20 +350,20 @@
     }
 
     .btn-secondary {
-      background: var(--gray-100);
-      color: var(--gray-700);
-      border: 1px solid var(--gray-300);
+      background: var(--secondary-color);
+      color: var(--text-color);
+      border: 2px solid rgba(0, 0, 0, 0.1);
     }
 
     .btn-secondary:hover {
-      background: var(--gray-200);
+      background: rgba(0, 0, 0, 0.05);
       transform: translateY(-2px);
     }
 
     /* Payment Methods */
     .payment-method {
-      background: var(--gray-50);
-      border: 2px solid var(--gray-200);
+      background: var(--secondary-color);
+      border: 2px solid rgba(0, 0, 0, 0.1);
       border-radius: 12px;
       padding: 1rem;
       margin-bottom: 1rem;
@@ -332,12 +375,12 @@
     }
 
     .payment-method:hover {
-      border-color: var(--primary);
-      background: var(--white);
+      border-color: var(--primary-color);
+      background: var(--white-color);
     }
 
     .payment-method.selected {
-      border-color: var(--primary);
+      border-color: var(--primary-color);
       background: rgba(80, 194, 201, 0.05);
     }
 
@@ -348,21 +391,21 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--white);
+      background: var(--white-color);
       border-radius: 8px;
-      box-shadow: var(--shadow-sm);
+      box-shadow: 0 2px 4px var(--card-shadow);
     }
 
     .payment-info h4 {
       font-size: 1rem;
       font-weight: 600;
-      color: var(--gray-800);
+      color: var(--text-color);
       margin-bottom: 0.25rem;
     }
 
     .payment-info p {
       font-size: 0.8rem;
-      color: var(--gray-600);
+      color: var(--text-light);
     }
 
     /* Modal Styles */
@@ -383,14 +426,14 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: var(--white);
+      background: var(--white-color);
       border-radius: 20px;
       padding: 2rem;
       max-width: 500px;
       width: 90%;
       max-height: 90vh;
       overflow-y: auto;
-      box-shadow: var(--shadow-2xl);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     }
 
     .modal h3 {
@@ -407,78 +450,6 @@
       margin-bottom: 1rem;
     }
 
-    /* Back Button */
-    .back-button {
-      position: fixed;
-      top: 2rem;
-      left: 2rem;
-      background: var(--white);
-      border: 1px solid var(--gray-300);
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: var(--shadow-md);
-      transition: all 0.3s ease;
-      z-index: 100;
-    }
-
-    .back-button:hover {
-      background: var(--primary);
-      color: var(--white);
-      transform: scale(1.1);
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      body {
-        padding: 1rem;
-      }
-
-      .container {
-        grid-template-columns: 1fr;
-      }
-
-      .card {
-        padding: 1.5rem;
-      }
-
-      .balance-info {
-        grid-template-columns: 1fr;
-      }
-
-      .action-buttons {
-        flex-direction: column;
-      }
-
-      .back-button {
-        top: 1rem;
-        left: 1rem;
-      }
-    }
-
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-
-    .card {
-      animation: fadeIn 0.6s ease-out;
-    }
-
-    .balance-value {
-      animation: pulse 2s infinite;
-    }
-
     /* Loading Animation */
     .loading {
       display: inline-block;
@@ -486,7 +457,7 @@
       height: 20px;
       border: 2px solid rgba(255, 255, 255, 0.3);
       border-radius: 50%;
-      border-top-color: var(--white);
+      border-top-color: var(--white-color);
       animation: spin 1s linear infinite;
       margin-right: 0.5rem;
     }
@@ -494,91 +465,202 @@
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+      .redemption-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+      }
+      
+      .main-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+      }
+      
+      .page-title {
+        font-size: 1.5rem;
+      }
+      
+      .balance-info {
+        grid-template-columns: 1fr;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- Back Button -->
-  <button class="back-button" onclick="window.location.href='gamification.html'" title="Go Back">
-    ←
-  </button>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="assets/whitelogo-Photoroom.jpg" alt="Company Logo" class="logo">
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="dashboard.html"><i class="fa-solid fa-table-columns"></i> Dashboard</a></li>
+          <li><a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a></li>
+          <li><a href="qrcodescanner.html"><i class="fa-solid fa-qrcode"></i> QR Code</a></li>
+          <li><a href="detection.html"><i class="fa-solid fa-camera"></i> Detection</a></li>
+          <li><a href="gamification.html"><i class="fa-solid fa-trophy"></i> Results</a></li>
+          <li><a href="pickup.html"><i class="fa-solid fa-calendar-days"></i> Schedule</a></li>
+          <li><a href="contactus.html"><i class="fa-solid fa-message"></i> Message</a></li>
+          <li><a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a></li>
+          <li><a href="campaign.html"><i class="fa-solid fa-clock-rotate-left"></i> History</a></li>
+        </ul>
+      </nav>
+    </aside>
 
-  <h1>💰 Point Redemption Center</h1>
-
-  <div class="container">
-    <!-- Balance Card -->
-    <div class="card balance-card">
-      <h2>💎 Your Balance</h2>
-      <div class="balance-info">
-        <div class="balance-item">
-          <div class="balance-value" id="totalPoints">0</div>
-          <div class="balance-label">Points</div>
+    <main class="main-content">
+      <header class="main-header">
+        <h1 class="page-title">
+          <i class="fa-solid fa-coins"></i>
+          Point Redemption Center
+        </h1>
+        <div class="user-profile">
+          <i class="fa-regular fa-bell"></i>
+          <i class="fa-solid fa-user-circle user-icon"></i> 
         </div>
-        <div class="balance-item">
-          <div class="balance-value" id="totalRupees">₹0</div>
-          <div class="balance-label">Indian Rupees</div>
+      </header>
+
+      <div class="redemption-grid">
+        <div class="card balance-card">
+          <h2 class="card-title">
+            <i class="fa-solid fa-wallet"></i>
+            Your Balance
+          </h2>
+          <div class="balance-info">
+            <div class="balance-item">
+              <div class="balance-value" id="totalPoints">0</div>
+              <div class="balance-label">Points</div>
+            </div>
+            <div class="balance-item">
+              <div class="balance-value" id="totalRupees">₹0</div>
+              <div class="balance-label">Indian Rupees</div>
+            </div>
+          </div>
+          <div class="exchange-rate">
+            💡 Exchange Rate: 10 Points = ₹1 INR
+          </div>
         </div>
-      </div>
-      <div class="exchange-rate">
-        💡 Exchange Rate: 10 Points = ₹1 INR
-      </div>
-    </div>
 
-    <!-- Redemption Options -->
-    <div class="card">
-      <h2>🎯 Redemption Options</h2>
-      
-      <div class="redemption-option" onclick="selectOption('paytm', 50)">
-        <div class="option-title">🏦 Paytm Wallet</div>
-        <div class="option-details">Instant transfer to your Paytm wallet</div>
-        <div class="option-value">Minimum: ₹5 (50 points)</div>
-      </div>
-
-      <div class="redemption-option" onclick="selectOption('upi', 100)">
-        <div class="option-title">📱 UPI Transfer</div>
-        <div class="option-details">Direct transfer to any UPI ID</div>
-        <div class="option-value">Minimum: ₹10 (100 points)</div>
-      </div>
-
-      <div class="redemption-option" onclick="selectOption('bank', 250)">
-        <div class="option-title">🏛️ Bank Transfer</div>
-        <div class="option-details">Transfer to bank account (2-3 business days)</div>
-        <div class="option-value">Minimum: ₹25 (250 points)</div>
-      </div>
-
-      <div class="redemption-option" onclick="selectOption('gift', 500)">
-        <div class="option-title">🎁 Gift Voucher</div>
-        <div class="option-details">Amazon, Flipkart, or other e-commerce vouchers</div>
-        <div class="option-value">Minimum: ₹50 (500 points)</div>
-      </div>
-
-      <div class="redemption-option" onclick="selectOption('custom', 0)">
-        <div class="option-title">⚙️ Custom Amount</div>
-        <div class="option-details">Enter your preferred redemption amount</div>
-        <div class="option-value">Any amount above minimum</div>
-        <div class="custom-amount" id="customAmount">
-          <label for="customInput">Enter amount in rupees:</label>
-          <input type="number" id="customInput" min="1" placeholder="Enter amount" oninput="updateCustomAmount()">
-          <div id="customPoints" style="margin-top: 0.5rem; color: var(--primary); font-weight: 600;"></div>
+        <div class="card">
+          <h2 class="card-title">
+            <i class="fa-solid fa-chart-line"></i>
+            Quick Stats
+          </h2>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div style="text-align: center; padding: 1rem; background: var(--secondary-color); border-radius: 8px;">
+              <div style="font-size: 1.5rem; font-weight: 700; color: var(--success-color);" id="totalRedeemed">₹0</div>
+              <div style="font-size: 0.8rem; color: var(--text-light);">Total Redeemed</div>
+            </div>
+            <div style="text-align: center; padding: 1rem; background: var(--secondary-color); border-radius: 8px;">
+              <div style="font-size: 1.5rem; font-weight: 700; color: var(--warning-color);" id="totalEarned">0</div>
+              <div style="font-size: 0.8rem; color: var(--text-light);">Points Earned</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="action-buttons">
-        <button class="btn btn-secondary" onclick="resetSelection()">Reset</button>
-        <button class="btn btn-primary" id="redeemBtn" onclick="showPaymentMethods()" disabled>
-          Select Option First
-        </button>
+      <div class="card">
+        <h2 class="card-title">
+          <i class="fa-solid fa-gift"></i>
+          Redemption Options
+        </h2>
+        
+        <div class="redemption-option" onclick="selectOption('paytm', 50)">
+          <div class="option-title">
+            <i class="fa-solid fa-mobile-alt" style="color: var(--info-color);"></i>
+            Paytm Wallet
+          </div>
+          <div class="option-details">Instant transfer to your Paytm wallet</div>
+          <div class="option-value">Minimum: ₹5 (50 points)</div>
+        </div>
+
+        <div class="redemption-option" onclick="selectOption('upi', 100)">
+          <div class="option-title">
+            <i class="fa-solid fa-university" style="color: var(--success-color);"></i>
+            UPI Transfer
+          </div>
+          <div class="option-details">Direct transfer to any UPI ID</div>
+          <div class="option-value">Minimum: ₹10 (100 points)</div>
+        </div>
+
+        <div class="redemption-option" onclick="selectOption('bank', 250)">
+          <div class="option-title">
+            <i class="fa-solid fa-building-columns" style="color: var(--primary-color);"></i>
+            Bank Transfer
+          </div>
+          <div class="option-details">Transfer to bank account (2-3 business days)</div>
+          <div class="option-value">Minimum: ₹25 (250 points)</div>
+        </div>
+
+        <div class="redemption-option" onclick="selectOption('gift', 500)">
+          <div class="option-title">
+            <i class="fa-solid fa-gift" style="color: var(--warning-color);"></i>
+            Gift Voucher
+          </div>
+          <div class="option-details">Amazon, Flipkart, or other e-commerce vouchers</div>
+          <div class="option-value">Minimum: ₹50 (500 points)</div>
+        </div>
+
+        <div class="redemption-option" onclick="selectOption('custom', 0)">
+          <div class="option-title">
+            <i class="fa-solid fa-sliders" style="color: var(--danger-color);"></i>
+            Custom Amount
+          </div>
+          <div class="option-details">Enter your preferred redemption amount</div>
+          <div class="option-value">Any amount above minimum</div>
+          <div class="custom-amount" id="customAmount">
+            <label for="customInput" style="font-weight: 500; color: var(--text-color);">Enter amount in rupees:</label>
+            <input type="number" id="customInput" min="1" placeholder="Enter amount" oninput="updateCustomAmount()">
+            <div id="customPoints" style="margin-top: 0.5rem; color: var(--primary-color); font-weight: 600;"></div>
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <button class="btn btn-secondary" onclick="resetSelection()">
+            <i class="fa-solid fa-arrow-rotate-left"></i>
+            Reset
+          </button>
+          <button class="btn btn-primary" id="redeemBtn" onclick="showPaymentMethods()" disabled>
+            Select Option First
+          </button>
+        </div>
       </div>
-    </div>
+    </main>
   </div>
 
-  <!-- Payment Method Modal -->
   <div class="modal" id="paymentModal">
     <div class="modal-content">
-      <h3>💳 Select Payment Method</h3>
+      <h3>
+        <i class="fa-solid fa-credit-card"></i>
+        Select Payment Method
+      </h3>
       
       <div id="paymentMethods">
-        <!-- Payment methods will be populated by JavaScript -->
-      </div>
+        </div>
 
       <div class="action-buttons">
         <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
@@ -589,7 +671,6 @@
     </div>
   </div>
 
-  <!-- Success Modal -->
   <div class="modal" id="successModal">
     <div class="modal-content">
       <div class="success-icon">🎉</div>
@@ -597,6 +678,7 @@
       <div id="successMessage"></div>
       <div class="action-buttons" style="margin-top: 2rem;">
         <button class="btn btn-primary" onclick="closeModal(); window.location.reload();">
+          <i class="fa-solid fa-check"></i>
           Continue
         </button>
       </div>
@@ -611,28 +693,16 @@
 
     // Load points from previous sessions
     function loadBalance() {
-      const counts = JSON.parse(sessionStorage.getItem("wasteCounts") || "{}");
-      const pointsMap = {
-        glove: 10,
-        syringe: 15,
-        mask: 8,
-        bottle: 12,
-        needle: 20
-      };
-
-      totalPoints = 0;
-      for (let item in counts) {
-        const count = counts[item];
-        const points = (pointsMap[item] || 5) * count;
-        totalPoints += points;
-      }
-
-      // Load previously accumulated points
-      const savedPoints = parseInt(localStorage.getItem('totalAccumulatedPoints') || '0');
-      totalPoints += savedPoints;
+      // Mock data for demonstration
+      const mockPoints = 1250; // Replace with actual data
+      totalPoints = mockPoints;
 
       document.getElementById('totalPoints').textContent = totalPoints;
       document.getElementById('totalRupees').textContent = `₹${Math.floor(totalPoints / 10)}`;
+      
+      // Mock stats
+      document.getElementById('totalRedeemed').textContent = '₹45';
+      document.getElementById('totalEarned').textContent = totalPoints + 450;
     }
 
     function selectOption(type, minPoints) {
@@ -684,7 +754,7 @@
     function updateRedeemButton() {
       const btn = document.getElementById('redeemBtn');
       btn.disabled = false;
-      btn.innerHTML = `Redeem ₹${redemptionAmount} <span style="opacity: 0.8;">(${redemptionAmount * 10} points)</span>`;
+      btn.innerHTML = `<i class="fa-solid fa-arrow-right"></i> Redeem ₹${redemptionAmount} <span style="opacity: 0.8;">(${redemptionAmount * 10} points)</span>`;
     }
 
     function resetSelection() {
@@ -693,7 +763,7 @@
       });
       document.getElementById('customAmount').style.display = 'none';
       document.getElementById('redeemBtn').disabled = true;
-      document.getElementById('redeemBtn').textContent = 'Select Option First';
+      document.getElementById('redeemBtn').innerHTML = '<i class="fa-solid fa-hand-pointer"></i> Select Option First';
       selectedOption = null;
       redemptionAmount = 0;
     }
@@ -706,7 +776,7 @@
         case 'paytm':
           methodsHTML = `
             <div class="payment-method" onclick="selectPayment('paytm-phone')">
-              <div class="payment-icon">📱</div>
+              <div class="payment-icon"><i class="fa-solid fa-mobile-alt" style="color: var(--info-color);"></i></div>
               <div class="payment-info">
                 <h4>Paytm Mobile Number</h4>
                 <p>Enter your registered mobile number</p>
@@ -718,7 +788,7 @@
         case 'upi':
           methodsHTML = `
             <div class="payment-method" onclick="selectPayment('upi-id')">
-              <div class="payment-icon">🔗</div>
+              <div class="payment-icon"><i class="fa-solid fa-link" style="color: var(--success-color);"></i></div>
               <div class="payment-info">
                 <h4>UPI ID</h4>
                 <p>Enter your UPI ID (e.g., user@paytm)</p>
@@ -730,7 +800,7 @@
         case 'bank':
           methodsHTML = `
             <div class="payment-method" onclick="selectPayment('bank-account')">
-              <div class="payment-icon">🏦</div>
+              <div class="payment-icon"><i class="fa-solid fa-building-columns" style="color: var(--primary-color);"></i></div>
               <div class="payment-info">
                 <h4>Bank Account</h4>
                 <p>Account number and IFSC code required</p>
@@ -742,14 +812,14 @@
         case 'gift':
           methodsHTML = `
             <div class="payment-method" onclick="selectPayment('amazon')">
-              <div class="payment-icon">📦</div>
+              <div class="payment-icon"><i class="fa-solid fa-box" style="color: var(--warning-color);"></i></div>
               <div class="payment-info">
                 <h4>Amazon Gift Card</h4>
                 <p>Delivered to your email</p>
               </div>
             </div>
             <div class="payment-method" onclick="selectPayment('flipkart')">
-              <div class="payment-icon">🛒</div>
+              <div class="payment-icon"><i class="fa-solid fa-shopping-cart" style="color: var(--info-color);"></i></div>
               <div class="payment-info">
                 <h4>Flipkart Gift Card</h4>
                 <p>Delivered to your email</p>
@@ -759,17 +829,16 @@
           break;
         
         case 'custom':
-          // Use the same payment methods as UPI for custom amounts
           methodsHTML = `
             <div class="payment-method" onclick="selectPayment('upi-id')">
-              <div class="payment-icon">🔗</div>
+              <div class="payment-icon"><i class="fa-solid fa-link" style="color: var(--success-color);"></i></div>
               <div class="payment-info">
                 <h4>UPI ID</h4>
                 <p>Enter your UPI ID for transfer</p>
               </div>
             </div>
             <div class="payment-method" onclick="selectPayment('paytm-phone')">
-              <div class="payment-icon">📱</div>
+              <div class="payment-icon"><i class="fa-solid fa-mobile-alt" style="color: var(--info-color);"></i></div>
               <div class="payment-info">
                 <h4>Paytm Mobile</h4>
                 <p>Enter your registered mobile number</p>
@@ -790,7 +859,7 @@
       event.currentTarget.classList.add('selected');
       selectedPayment = method;
       document.getElementById('confirmBtn').disabled = false;
-      document.getElementById('confirmBtn').textContent = 'Confirm Redemption';
+      document.getElementById('confirmBtn').innerHTML = '<i class="fa-solid fa-check"></i> Confirm Redemption';
     }
 
     function processRedemption() {
@@ -803,9 +872,6 @@
         const pointsToDeduct = redemptionAmount * 10;
         totalPoints -= pointsToDeduct;
         
-        // Save updated points
-        localStorage.setItem('totalAccumulatedPoints', totalPoints.toString());
-        
         // Update display
         document.getElementById('totalPoints').textContent = totalPoints;
         document.getElementById('totalRupees').textContent = `₹${Math.floor(totalPoints / 10)}`;
@@ -815,11 +881,11 @@
           <p style="text-align: center; margin-bottom: 1rem;">
             <strong>₹${redemptionAmount}</strong> has been successfully redeemed!
           </p>
-          <p style="text-align: center; color: var(--gray-600); font-size: 0.9rem;">
+          <p style="text-align: center; color: var(--text-light); font-size: 0.9rem;">
             ${pointsToDeduct} points deducted from your account.<br>
             Remaining balance: ${totalPoints} points (₹${Math.floor(totalPoints / 10)})
           </p>
-          <div style="background: var(--gray-50); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+          <div style="background: var(--secondary-color); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
             <strong>Transaction Details:</strong><br>
             Amount: ₹${redemptionAmount}<br>
             Method: ${getPaymentMethodName(selectedPayment)}<br>
