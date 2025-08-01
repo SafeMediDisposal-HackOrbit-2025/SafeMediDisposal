@@ -3,126 +3,199 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Gamification Results</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>Waste Detection Results</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
   <style>
     :root {
-      --primary: #50C2C9;
-      --primary-dark: #3ba0a6;
-      --secondary: #2c8a8f;
-      --success: #10b981;
-      --white: #ffffff;
-      --gray-50: #f9fafb;
-      --gray-100: #f3f4f6;
-      --gray-600: #4b5563;
-      --gray-700: #374151;
-      --gray-800: #1f2937;
-      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-      --gradient-primary: linear-gradient(135deg, #50C2C9 0%, #3ba0a6 50%, #2c8a8f 100%);
-      --gradient-light: linear-gradient(135deg, #ecfeff 0%, #cffafe 100%);
-      --gradient-success: linear-gradient(135deg, #10b981 0%, #059669 100%);
-      --gradient-gold: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      --primary-color: #50c2c9;
+      --primary-dark: #028090;
+      --secondary-color: #F0F3F4;
+      --background-color: #CADBDB;
+      --text-color: #2C3E50;
+      --text-light: #808B96;
+      --white-color: #FFFFFF;
+      --card-shadow: rgba(0, 0, 0, 0.05);
+      --success-color: #27AE60;
+      --danger-color: #E74C3C;
+      --warning-color: #F39C12;
+      --info-color: #3498DB;
+      --dark-card-background: #171821;
     }
 
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: var(--gradient-light);
-      min-height: 100vh;
-      padding: 2rem;
-      color: var(--gray-800);
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      height: 100vh;
       line-height: 1.6;
     }
 
-    h1 {
-      background: var(--gradient-primary);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 700;
-      margin-bottom: 2rem;
+    .app-container {
+      display: flex;
+      height: 100vh;
+    }
+
+    .sidebar {
+      width: 250px;
+      flex-shrink: 0;
+      background: var(--primary-color);
+      color: var(--white-color);
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 3rem;
+      padding: 0 1rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .sidebar-header .logo {
+      max-height: 70px;
+      width: auto;
+      margin-right: 0.5rem;
+    }
+
+    .company-name {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--white-color);
+    }
+
+    .sidebar-nav ul {
+      list-style: none;
+    }
+
+    .sidebar-nav a {
+      display: flex;
+      align-items: center;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      margin: 0.5rem 0;
+      transition: background-color 0.3s;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .sidebar-nav a.active, .sidebar-nav a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .sidebar-nav a.active {
+      font-weight: 600;
+    }
+
+    .sidebar-nav a i {
+      margin-right: 1rem;
+      font-size: 1.2rem;
+      width: 20px;
       text-align: center;
-      position: relative;
     }
 
-    h1::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 4px;
-      background: var(--gradient-primary);
-      border-radius: 2px;
-    }
-
-    .score-board {
-      background: var(--white);
+    .main-content {
+      flex-grow: 1;
       padding: 2rem;
-      border-radius: 20px;
-      box-shadow: var(--shadow-xl);
-      max-width: 700px;
-      margin: auto;
-      border: 1px solid rgba(80, 194, 201, 0.1);
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .main-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .page-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+    }
+
+    .user-profile i {
+      font-size: 1.5rem;
+      color: var(--text-light);
+      margin-right: 1rem;
+      cursor: pointer;
+    }
+
+    .card {
+      background-color: var(--white-color);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px var(--card-shadow);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      margin-bottom: 1rem;
+    }
+
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--text-color);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .score-card {
+      background: var(--white-color);
+      color: var(--text-color);
+      text-align: center;
+      padding: 2rem;
+      border-radius: 12px;
       position: relative;
       overflow: hidden;
+      box-shadow: 0 4px 6px var(--card-shadow);
+      border: 1px solid rgba(0, 0, 0, 0.08);
     }
 
-    .score-board::before {
+    .score-card::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       height: 4px;
-      background: var(--gradient-primary);
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
     }
 
-    .score-board ul {
-      list-style: none;
-      padding: 0;
-      margin: 1.5rem 0;
-      text-align: left;
-    }
-
-    .score-board li {
-      font-size: 1.1rem;
-      margin: 1rem 0;
-      padding: 1rem;
-      background: var(--gray-50);
-      border-radius: 8px;
-      border-left: 4px solid var(--primary);
-      transition: all 0.3s ease;
-    }
-
-    .score-board li:hover {
-      background: rgba(80, 194, 201, 0.05);
-      transform: translateX(5px);
-    }
-
-    .score-board li strong {
-      color: var(--primary-dark);
-      text-transform: capitalize;
-    }
-
-    .score {
-      font-size: 2.5rem;
+    .score-number {
+      font-size: 3rem;
       font-weight: 700;
-      background: var(--gradient-primary);
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin: 2rem 0 1rem 0;
-      text-align: center;
+      margin: 1rem 0;
       animation: pulse 2s infinite;
     }
 
@@ -131,30 +204,70 @@
       50% { transform: scale(1.05); }
     }
 
-    .feedback {
-      margin: 2rem 0;
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: var(--gray-700);
-      text-align: center;
-      padding: 1.5rem;
-      background: var(--gray-50);
-      border-radius: 12px;
-      border: 1px solid rgba(80, 194, 201, 0.2);
+    .score-label {
+      font-size: 1.1rem;
+      font-weight: 500;
+      opacity: 0.9;
     }
 
-    .conversion-info {
+    .achievement-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: var(--white-color);
+      padding: 0.75rem 1.5rem;
+      border-radius: 20px;
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 1rem 0;
+      box-shadow: 0 4px 6px var(--card-shadow);
+    }
+
+    .breakdown-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .breakdown-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      margin: 0.5rem 0;
+      background: var(--secondary-color);
+      border-radius: 8px;
+      border-left: 4px solid var(--primary-color);
+      transition: all 0.3s ease;
+    }
+
+    .breakdown-item:hover {
       background: rgba(80, 194, 201, 0.1);
-      border: 2px solid var(--primary);
+      transform: translateX(5px);
+    }
+
+    .breakdown-item-name {
+      font-weight: 600;
+      color: var(--text-color);
+      text-transform: capitalize;
+    }
+
+    .breakdown-item-points {
+      color: var(--primary-dark);
+      font-weight: 700;
+    }
+
+    .conversion-card {
+      background: linear-gradient(135deg, rgba(80, 194, 201, 0.1) 0%, rgba(80, 194, 201, 0.05) 100%);
+      border: 2px solid var(--primary-color);
       border-radius: 12px;
-      padding: 1.5rem;
-      margin: 2rem 0;
+      padding: 2rem;
       text-align: center;
       position: relative;
       overflow: hidden;
     }
 
-    .conversion-info::before {
+    .conversion-card::before {
       content: '💰';
       position: absolute;
       top: 1rem;
@@ -163,24 +276,36 @@
       opacity: 0.3;
     }
 
-    .conversion-info h3 {
+    .conversion-title {
       color: var(--primary-dark);
       font-size: 1.3rem;
       font-weight: 600;
-      margin-bottom: 0.75rem;
+      margin-bottom: 1rem;
     }
 
     .rupee-amount {
-      font-size: 2rem;
+      font-size: 2.5rem;
       font-weight: 700;
-      color: var(--success);
-      margin: 0.5rem 0;
+      color: var(--success-color);
+      margin: 1rem 0;
     }
 
     .conversion-rate {
       font-size: 0.9rem;
-      color: var(--gray-600);
+      color: var(--text-light);
       font-style: italic;
+      margin-bottom: 1rem;
+    }
+
+    .feedback-card {
+      background: var(--secondary-color);
+      border: 1px solid rgba(80, 194, 201, 0.2);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-color);
     }
 
     .button-container {
@@ -188,10 +313,10 @@
       flex-wrap: wrap;
       gap: 1rem;
       justify-content: center;
-      margin-top: 2rem;
+      margin-top: 1rem;
     }
 
-    button {
+    .btn {
       padding: 1rem 2rem;
       font-size: 1rem;
       font-weight: 600;
@@ -199,140 +324,65 @@
       border-radius: 12px;
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: var(--shadow-md);
+      box-shadow: 0 4px 6px var(--card-shadow);
       position: relative;
       overflow: hidden;
       min-width: 200px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
     }
 
     .btn-primary {
-      background: var(--gradient-primary);
-      color: var(--white);
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+      color: var(--white-color);
     }
 
     .btn-primary:hover {
       transform: translateY(-3px);
-      box-shadow: var(--shadow-lg);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     }
 
     .btn-secondary {
-      background: var(--gray-100);
-      color: var(--gray-700);
-      border: 2px solid var(--gray-300);
+      background: var(--secondary-color);
+      color: var(--text-color);
+      border: 2px solid rgba(0, 0, 0, 0.1);
     }
 
     .btn-secondary:hover {
-      background: var(--gray-200);
+      background: rgba(0, 0, 0, 0.05);
       transform: translateY(-2px);
     }
 
     .btn-success {
-      background: var(--gradient-success);
-      color: var(--white);
-      animation: shimmer 2s infinite;
+      background: var(--primary-color);
+      color: var(--white-color);
     }
 
     .btn-success:hover {
+      background: var(--primary-dark);
       transform: translateY(-3px);
-      box-shadow: var(--shadow-lg);
-    }
-
-    @keyframes shimmer {
-      0%, 100% { background-position: -200% 0; }
-      50% { background-position: 200% 0; }
-    }
-
-    .btn-success {
-      background: linear-gradient(135deg, #10b981 25%, #059669 50%, #047857 75%);
-      background-size: 200% 100%;
-    }
-
-    /* Add ripple effect */
-    button::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.3);
-      transition: all 0.3s;
-      transform: translate(-50%, -50%);
-    }
-
-    button:active::before {
-      width: 300px;
-      height: 300px;
-    }
-
-    .achievement-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: var(--gradient-gold);
-      color: var(--white);
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      margin: 0.5rem auto;
-      box-shadow: var(--shadow-md);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     }
 
     .no-data {
       text-align: center;
       padding: 3rem 2rem;
-      color: var(--gray-600);
+      color: var(--text-light);
     }
 
-    .no-data::before {
-      content: '📊';
+    .no-data-icon {
       font-size: 4rem;
-      display: block;
       margin-bottom: 1rem;
       opacity: 0.5;
     }
 
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      body {
-        padding: 1rem;
-      }
-
-      .score-board {
-        padding: 1.5rem;
-      }
-
-      .score {
-        font-size: 2rem;
-      }
-
-      .feedback {
-        font-size: 1.1rem;
-        padding: 1rem;
-      }
-
-      .button-container {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      button {
-        width: 100%;
-        max-width: 300px;
-      }
-
-      .rupee-amount {
-        font-size: 1.5rem;
-      }
-    }
-
-    /* Loading animation */
     .loading {
       text-align: center;
-      padding: 2rem;
-      color: var(--primary);
+      padding: 3rem 2rem;
+      color: var(--primary-color);
     }
 
     .loading::after {
@@ -342,7 +392,7 @@
       height: 24px;
       border: 3px solid rgba(80, 194, 201, 0.3);
       border-radius: 50%;
-      border-top-color: var(--primary);
+      border-top-color: var(--primary-color);
       animation: spin 1s linear infinite;
       margin-left: 1rem;
     }
@@ -351,21 +401,94 @@
       to { transform: rotate(360deg); }
     }
 
-    /* Fade in animation */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .score-board {
+    .results-content {
       animation: fadeIn 0.6s ease-out;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+      .results-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+      }
+      
+      .main-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+      }
+      
+      .search-bar {
+        width: 100%;
+      }
+      
+      .page-title {
+        font-size: 1.5rem;
+      }
+      
+      .score-number {
+        font-size: 2rem;
+      }
+      
+      .button-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .btn {
+        width: 100%;
+        max-width: 300px;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>🧪 Waste Collection Score</h1>
-  <div class="score-board" id="scoreBoard">
-    <div class="loading">Calculating your rewards...</div>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="assets/whitelogo-Photoroom.jpg" alt="Company Logo" class="logo">
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="dashboard.html"><i class="fa-solid fa-table-columns"></i> Dashboard</a></li>
+          <li><a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a></li>
+          <li><a href="qrcodescanner.html"><i class="fa-solid fa-qrcode"></i> QR Code</a></li>
+          <li><a href="detection.html"><i class="fa-solid fa-camera"></i> Detection</a></li>
+          <li><a href="#"><i class="fa-solid fa-trophy"></i> Results</a></li>
+          <li><a href="pickup.html"><i class="fa-solid fa-calendar-days"></i> Schedule</a></li>
+          <li><a href="contactus.html"><i class="fa-solid fa-message"></i> Message</a></li>
+          <li><a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a></li>
+          <li><a href="campaign.html"><i class="fa-solid fa-clock-rotate-left"></i> History</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="main-header">
+        <h1 class="page-title">
+          <i class="fa-solid fa-trophy"></i>
+          Waste Detection Results
+        </h1>
+        <div class="user-profile">
+          <i class="fa-regular fa-bell"></i>
+          <i class="fa-solid fa-user-circle user-icon"></i> 
+        </div>
+      </header>
+
+      <div id="resultsContainer">
+        <div class="loading">Calculating your rewards...</div>
+      </div>
+    </main>
   </div>
 
   <script>
@@ -377,20 +500,33 @@
       needle: 20
     };
 
-    const counts = JSON.parse(sessionStorage.getItem("wasteCounts") || "{}");
-    const scoreBoard = document.getElementById("scoreBoard");
+    // Mock data for demonstration - replace with actual sessionStorage data
+    const counts = {
+      syringe: 3,
+      mask: 5,
+      glove: 2,
+      bottle: 1,
+      needle: 1
+    };
+
+    const resultsContainer = document.getElementById("resultsContainer");
 
     // Simulate loading for better UX
     setTimeout(() => {
       if (Object.keys(counts).length === 0) {
-        scoreBoard.innerHTML = `
-          <div class="no-data">
-            No waste detection data found. Please detect waste items first to see your score.
-          </div>
-          <div class="button-container">
-            <button class="btn-secondary" onclick="window.location.href='index.html'">
-              🔍 Start Detection
-            </button>
+        resultsContainer.innerHTML = `
+          <div class="card">
+            <div class="no-data">
+              <div class="no-data-icon">📊</div>
+              <h3>No Detection Data Found</h3>
+              <p>Please detect waste items first to see your score and rewards.</p>
+            </div>
+            <div class="button-container">
+              <a href="index.html" class="btn btn-primary">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                Start Detection
+              </a>
+            </div>
           </div>
         `;
       } else {
@@ -403,7 +539,15 @@
           const points = (pointsMap[item] || 5) * count;
           totalPoints += points;
           itemCount += count;
-          breakdownHTML += `<li><strong>${item}:</strong> ${count} items × ${pointsMap[item] || 5} pts = <span style="color: var(--primary); font-weight: 700;">${points} points</span></li>`;
+          breakdownHTML += `
+            <li class="breakdown-item">
+              <div>
+                <span class="breakdown-item-name">${item}:</span>
+                <span style="color: var(--text-light);"> ${count} items × ${pointsMap[item] || 5} pts</span>
+              </div>
+              <span class="breakdown-item-points">${points} points</span>
+            </li>
+          `;
         }
 
         // Calculate rupee equivalent
@@ -412,56 +556,85 @@
         // Determine feedback and achievement
         let feedback = "";
         let achievement = "";
+        let achievementIcon = "";
         
         if (totalPoints >= 200) {
-          feedback = "🌟 Outstanding! You're a medical waste detection champion!";
-          achievement = "🏆 Champion Badge Earned!";
+          feedback = "Outstanding! You're a medical waste detection champion!";
+          achievement = "Champion Badge Earned!";
+          achievementIcon = "🏆";
         } else if (totalPoints >= 100) {
-          feedback = "🎉 Excellent work! You're making hospitals safer.";
-          achievement = "🥇 Expert Badge Earned!";
+          feedback = "Excellent work! You're making hospitals safer.";
+          achievement = "Expert Badge Earned!";
+          achievementIcon = "🥇";
         } else if (totalPoints >= 50) {
-          feedback = "👍 Great job! You're contributing to healthcare safety.";
-          achievement = "🥈 Contributor Badge Earned!";
+          feedback = "Great job! You're contributing to healthcare safety.";
+          achievement = "Contributor Badge Earned!";
+          achievementIcon = "🥈";
         } else {
-          feedback = "📈 Good start! Keep detecting to earn more rewards.";
-          achievement = "🥉 Beginner Badge Earned!";
+          feedback = "Good start! Keep detecting to earn more rewards.";
+          achievement = "Beginner Badge Earned!";
+          achievementIcon = "🥉";
         }
 
-        // Save points for redemption (accumulate with previous points)
-        const previousPoints = parseInt(localStorage.getItem('totalAccumulatedPoints') || '0');
+        // Save points for redemption (simulate localStorage functionality)
+        const previousPoints = 150; // Mock previous points
         const newTotalPoints = previousPoints + totalPoints;
-        localStorage.setItem('totalAccumulatedPoints', newTotalPoints.toString());
 
-        scoreBoard.innerHTML = `
-          <div class="achievement-badge">
-            ${achievement}
-          </div>
-          
-          <h3 style="color: var(--primary-dark); font-size: 1.4rem; margin-bottom: 1rem;">
-            📊 Detection Breakdown
-          </h3>
-          <ul>${breakdownHTML}</ul>
-          
-          <div class="score">Session Score: ${totalPoints} pts</div>
-          
-          <div class="conversion-info">
-            <h3>💰 Reward Conversion</h3>
-            <div class="rupee-amount">₹${rupeeAmount}</div>
-            <div class="conversion-rate">Exchange Rate: 10 Points = ₹1 INR</div>
-            ${previousPoints > 0 ? `<div style="margin-top: 1rem; color: var(--gray-600);">Previous Balance: ${previousPoints} points<br>New Total: ${newTotalPoints} points (₹${Math.floor(newTotalPoints / 10)})</div>` : ''}
-          </div>
-          
-          <div class="feedback">${feedback}</div>
-          
-          <div class="button-container">
-            <button class="btn-secondary" onclick="window.location.href='index.html'">
-              🔍 Detect More Items
-            </button>
-            ${totalPoints > 0 ? `
-              <button class="btn-success" onclick="window.location.href='redemption.html'">
-                💰 Redeem Points (${newTotalPoints} pts available)
-              </button>
-            ` : ''}
+        resultsContainer.innerHTML = `
+          <div class="results-content">
+            <div class="results-grid">
+              <div class="card">
+                <div class="score-card">
+                  <div class="achievement-badge">
+                    ${achievementIcon} ${achievement}
+                  </div>
+                  <div class="score-number">${totalPoints}</div>
+                  <div class="score-label">Session Points</div>
+                </div>
+              </div>
+              
+              <div class="card">
+                <div class="conversion-card">
+                  <h3 class="conversion-title">💰 Reward Conversion</h3>
+                  <div class="rupee-amount">₹${rupeeAmount}</div>
+                  <div class="conversion-rate">Exchange Rate: 10 Points = ₹1 INR</div>
+                  ${previousPoints > 0 ? `
+                    <div style="margin-top: 1rem; color: var(--text-light); font-size: 0.9rem;">
+                      Previous Balance: ${previousPoints} points<br>
+                      <strong>New Total: ${newTotalPoints} points (₹${Math.floor(newTotalPoints / 10)})</strong>
+                    </div>
+                  ` : ''}
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3 class="card-title">
+                <i class="fa-solid fa-chart-bar"></i>
+                Detection Breakdown
+              </h3>
+              <ul class="breakdown-list">${breakdownHTML}</ul>
+            </div>
+
+            <div class="card">
+              <div class="feedback-card">
+                <i class="fa-solid fa-star" style="color: var(--warning-color); margin-right: 0.5rem;"></i>
+                ${feedback}
+              </div>
+            </div>
+
+            <div class="button-container">
+              <a href="index.html" class="btn btn-secondary">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                Detect More Items
+              </a>
+              ${totalPoints > 0 ? `
+                <a href="redemption.html" class="btn btn-success">
+                  <i class="fa-solid fa-coins"></i>
+                  Redeem Points (${newTotalPoints} pts)
+                </a>
+              ` : ''}
+            </div>
           </div>
         `;
       }
